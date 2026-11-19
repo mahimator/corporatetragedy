@@ -49,6 +49,14 @@
       "detectedAt": "2026-11-19T07:45:50.102Z",
       "ranAt": "2026-11-19T07:45:55.925Z",
       "exitCode": 0
+    },
+    {
+      "serial": "CT-20261119-1121-64",
+      "status": "pending",
+      "iteration": 1,
+      "prompt": "run the command npm run build && node -e \"const p=require('./package.json');if(!p.scripts.build||!p.main)process.exit(1);console.log('package metadata verified:',p.main,'build script present')\" in terminal",
+      "createdAt": "2026-11-19T07:49:30.370Z",
+      "note": "Batch verification after browser navigation and state changes"
     }
   ]
 }
