@@ -1,25 +1,32 @@
 # Corporate Tragedy
 
-A browser that looks and feels like a developer workstation. Social and entertainment apps live inside it, starting with WhatsApp.
+Corporate Tragedy is an open-source leisure-accessibility toolkit for work environments that make personal browsing feel out of place.
 
-## Iteration 01: WhatsApp
+The long-term product is a Chromium-based desktop browser with a native shell and modular playful integrations. Its first integration is WhatsApp. Companion utilities may be developed and distributed independently of the browser.
 
-- Minimal workstation-inspired browser chrome
-- WhatsApp Web only
-- Browser navigation controls
-- Address bar
-- Persistent WhatsApp login session
-- Simple workspace sidebar
+## Current rewrite
 
-## Run locally
+The rewrite is tracked on `rewrite/chromium-cef-foundation`. It replaces the original Electron/WebView prototype with a Chromium Embedded Framework (CEF) + Qt 6 + C++ foundation.
 
-Requires Node.js 20+.
+Read [the architecture decision and roadmap](docs/ARCHITECTURE.md) before implementation.
 
-```bash
-npm install
-npm run dev
-```
+## Product principles
 
-Electron launches the desktop shell. WhatsApp login persists in the `persist:whatsapp` partition.
+- Browser first, not a web app pretending to be a browser.
+- Use the real Chromium runtime. Never spoof browser identity to make a website work.
+- Keep app integrations modular and isolated.
+- Browser security and user privacy are not negotiable.
+- Companion utilities can stand alone and must not depend on browser internals.
+- Keep the project small, useful, and extensible. No fake features or decorative complexity.
 
-This iteration intentionally contains no terminal panel, inspector, fake IDE modules, or other app placeholders. Future integrations will be added incrementally.
+## Planned initial targets
+
+1. macOS developer build
+2. WhatsApp Web as a normal browser tab with persistent profile
+3. Corporate Tragedy shell, tabs/navigation, app sidebar
+4. Integration API for app-specific overlays and shortcuts
+5. Independent companion utilities
+
+## Licensing
+
+The project will maintain a third-party license and attribution inventory. Chromium/CEF and Qt have their own license and redistribution requirements, which will be documented before packaging.
