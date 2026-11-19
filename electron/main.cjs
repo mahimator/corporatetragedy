@@ -5,8 +5,8 @@ function createWindow() {
   const win = new BrowserWindow({
     width: 1440,
     height: 920,
-    minWidth: 900,
-    minHeight: 620,
+    minWidth: 760,
+    minHeight: 540,
     backgroundColor: '#111318',
     title: 'Corporate Tragedy',
     webPreferences: {
