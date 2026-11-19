@@ -10,6 +10,7 @@ A workstation-style desktop browser for a focused personal workspace. The first 
 - Back, forward, reload, and external-browser navigation
 - Persistent WhatsApp Web session (`persist:whatsapp`)
 - Optional workspace sidebar
+- Local persistent bookmarks stored in the app
 - Read-only WhatsApp chat preview panel (experimental and DOM-dependent)
 
 ## Keyboard shortcuts
