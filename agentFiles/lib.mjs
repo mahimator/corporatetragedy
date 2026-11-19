@@ -147,16 +147,13 @@ export async function syncPull(label = 'sync') {
   if (!SYNC) return { ok: true, skipped: true };
   if (!(await isGitRepo())) return { ok: false, reason: 'not-a-repo' };
 
-  const status = await git(['status', '--porcelain']);
-  if (status.stdout.trim()) {
-    // Rebase with local edits is brittle; the bridge commits before syncing.
-    await log(`${label}: working tree dirty, skipping pull`);
-    return { ok: false, reason: 'dirty' };
-  }
+  // --autostash covers tracked edits; untracked files never blocked a rebase, so
+  // pulling anyway avoids a stray file starving the queue forever.
   for (let attempt = 1; attempt <= 2; attempt += 1) {
     const pull = await git(['pull', '--rebase', '--autostash', '--quiet']);
     if (pull.exitCode === 0) return { ok: true };
     await log(`${label}: pull failed (attempt ${attempt}): ${pull.stderr.trim()}`);
+    await git(['rebase', '--abort']); // no-op unless a rebase actually started
     if (attempt < 2) await new Promise((r) => setTimeout(r, 1000));
   }
   return { ok: false, reason: 'pull-failed' };
