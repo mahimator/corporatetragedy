@@ -7,7 +7,12 @@
   "scripts": {
     "dev": "concurrently -k -n WEB,ELECTRON -c blue,green \"vite --host 127.0.0.1\" \"wait-on http://127.0.0.1:5173 && electron .\"",
     "build": "tsc --noEmit && vite build",
-    "start": "electron ."
+    "start": "electron .",
+    "bridge": "node agentFiles/bridge.mjs",
+    "bridge:once": "node agentFiles/bridge.mjs --once",
+    "prompt": "node agentFiles/cli.mjs prompt",
+    "mark": "node agentFiles/cli.mjs mark",
+    "bridge:status": "node agentFiles/cli.mjs status"
   },
   "dependencies": {
     "lucide-react": "^0.468.0",

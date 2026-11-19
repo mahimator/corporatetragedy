@@ -1,0 +1,7 @@
+node_modules/
+dist/
+.DS_Store
+
+# local bridge runtime artifacts
+agentFiles/.bridge.log
+agentFiles/*.tmp
