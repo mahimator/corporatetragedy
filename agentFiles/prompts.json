@@ -63,7 +63,7 @@
     },
     {
       "serial": "CT-20261119-1152-31",
-      "status": "ran (2)",
+      "status": "failed",
       "iteration": 2,
       "prompt": "run the command npm run build && node -e \"const p=require('./package.json');if(!p.scripts.build||!p.main)process.exit(1);console.log('package metadata verified:',p.main,'build script present')\" in terminal",
       "createdAt": "2026-11-19T07:50:20.099Z",
@@ -72,6 +72,15 @@
       "detectedAt": "2026-11-19T07:50:27.732Z",
       "ranAt": "2026-11-19T07:50:37.380Z",
       "exitCode": 2
+    },
+    {
+      "serial": "CT-20261119-1201-92",
+      "status": "pending",
+      "iteration": 3,
+      "prompt": "run the command npm run build && node -e \"const p=require('./package.json');if(!p.scripts.build||!p.main)process.exit(1);console.log('package metadata verified:',p.main,'build script present')\" in terminal",
+      "createdAt": "2026-11-19T07:51:07.775Z",
+      "retryOf": "CT-20261119-1152-31",
+      "note": "Third build check after correcting URL helper newline corruption"
     }
   ]
 }
