@@ -308,11 +308,12 @@
     },
     {
       "serial": "CT-20261119-1620-08",
-      "status": "pending",
+      "status": "detected",
       "iteration": 1,
       "prompt": "run the command node -e 'console.log(\"@electron/get:\",require.resolve(\"@electron/get\"));console.log(\"install script:\",require(\"fs\").readFileSync(\"node_modules/electron/install.js\",\"utf8\").slice(0,300))' && DEBUG=electron:get node node_modules/electron/install.js && ls -la node_modules/electron/path.txt node_modules/electron/dist/version || true in terminal",
       "createdAt": "2026-11-19T09:20:00.000Z",
-      "note": "Investigate why direct Electron installer exits without writing metadata, with downloader debug output"
+      "note": "Investigate why direct Electron installer exits without writing metadata, with downloader debug output",
+      "detectedAt": "2026-11-19T08:07:08.839Z"
     }
   ]
 }
