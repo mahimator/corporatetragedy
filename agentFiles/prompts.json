@@ -209,12 +209,14 @@
     },
     {
       "serial": "CT-20261119-1526-33",
-      "status": "detected",
+      "status": "ran (1)",
       "iteration": 1,
       "prompt": "run the command ls -la node_modules/electron && ls -la node_modules/electron/dist || true && npm ls electron --depth=0 in terminal",
       "createdAt": "2026-11-19T08:26:00.000Z",
       "note": "Diagnose broken Electron binary install before repair",
-      "detectedAt": "2026-11-19T08:03:52.023Z"
+      "detectedAt": "2026-11-19T08:03:52.023Z",
+      "ranAt": "2026-11-19T08:03:57.120Z",
+      "exitCode": 0
     }
   ]
 }
