@@ -161,7 +161,7 @@ export default function App() {
       {sidebar && <aside className="side">
         <div className="side-label">WORKSPACE</div>
         <div className="side-group"><span className="chevron">⌄</span> APPS</div>
-        <button className="app-row active" onClick={() => go(HOME_URL)}><span className="wa-icon">W</span> WhatsApp <span classes="live">●</span></button>
+        <button className="app-row active" onClick={() => go(HOME_URL)}><span className="wa-icon">W</span> WhatsApp <span className="live">●</span></button>
         <button className="app-row disabled" disabled><span className="add-icon">+</span> Add integration</button>
         <div className="side-bottom"><button><Search size={14}/> Find</button><button><Settings size={14}/> Preferences</button></div>
       </aside>}
@@ -172,7 +172,7 @@ export default function App() {
             onDomReady={() => {setLoaded(true);setLoadError('');refreshNavigation();void scanChats();}}
             onDidStartNavigation={() => {setLoaded(false);refreshNavigation();}}
             onDidNavigate={(e:any) => {if(e.url){setAddress(e.url);if(!isWhatsAppURL(e.url))clearWorkspace();}refreshNavigation();}}
-            onDidNavigateInPage={(e:any) => {if(e.url){setAddress(e.url);if(!e.url.includes('whatsapp.com'))clearWorkspace();}refreshNavigation();}}
+            onDidNavigateInPage={(e:any) => {if(e.url){setAddress(e.url);if(!isWhatsAppURL(e.url))clearWorkspace();}refreshNavigation();}}
             onDidFailLoad={(e:any) => {if(e.errorCode !== -3) setLoadError(e.errorDescription || 'Page failed to load');}}
             onConsoleMessage={(e:any)=>console.warn('[webview console]',e.message)}
             onTitleUpdated={(e:any)=>setPageTitle(e.title || 'Web')}/>
