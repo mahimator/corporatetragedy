@@ -17,7 +17,7 @@ function createWindow() {
     }
   });
   win.removeMenu();
-  if (!app.isPackaged) win.loadURL('http://127.0.0.1:5173');
+  if (!app.isPackaged) win.loadURL(process.env.CT_DEV_URL || 'http://127.0.0.1:5173');
   else win.loadFile(path.join(__dirname, '../dist/index.html'));
   win.webContents.setWindowOpenHandler(({ url }) => {
     if (url.startsWith('https://') || url.startsWith('http://')) shell.openExternal(url);
