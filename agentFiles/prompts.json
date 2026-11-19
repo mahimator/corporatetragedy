@@ -198,12 +198,14 @@
     },
     {
       "serial": "CT-20261119-1517-42",
-      "status": "detected",
+      "status": "ran (1)",
       "iteration": 1,
       "prompt": "run the command node -e 'const {spawn}=require(\"node:child_process\");const p=spawn(\"./node_modules/.bin/electron\",[\".\"],{stdio:[\"ignore\",\"pipe\",\"pipe\"]});let o=\"\",e=\"\";p.stdout.on(\"data\",d=>o+=d);p.stderr.on(\"data\",d=>e+=d);p.on(\"error\",x=>{console.error(x.message);process.exitCode=1});p.on(\"exit\",(code,signal)=>{console.log(\"Electron exited early:\",code,signal);console.log(o);console.error(e)});setTimeout(()=>{if(p.exitCode===null){console.log(\"Electron stayed alive for 8 seconds, stopping smoke instance\");p.kill(\"SIGTERM\");setTimeout(()=>{console.log(\"STDOUT:\",o);console.error(\"STDERR:\",e)},800)}},8000)' in terminal",
       "createdAt": "2026-11-19T08:17:00.000Z",
       "note": "Foreground Electron startup smoke test with captured stdout/stderr to diagnose the detached launch exiting",
-      "detectedAt": "2026-11-19T08:03:20.923Z"
+      "detectedAt": "2026-11-19T08:03:20.923Z",
+      "ranAt": "2026-11-19T08:03:32.908Z",
+      "exitCode": 0
     }
   ]
 }
