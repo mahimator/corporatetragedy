@@ -155,6 +155,18 @@ export default function App() {
         setLoadError('');
         webview.current?.reload();
       }
+      if ((event.altKey || event.metaKey) && event.key === 'ArrowLeft' && canGoBack) {
+        event.preventDefault();
+        webview.current?.goBack();
+      }
+      if ((event.altKey || event.metaKey) && event.key === 'ArrowRight' && canGoForward) {
+        event.preventDefault();
+        webview.current?.goForward();
+      }
+      if (event.key === 'Escape' && terminalMode) {
+        setTerminalMode(false);
+      }
+
     };
     window.addEventListener('keydown', handleShortcut);
     return () => window.removeEventListener('keydown', handleShortcut);
