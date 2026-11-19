@@ -213,7 +213,7 @@ export default function App() {
             <footer><span className="term-green">ct@workspace</span>:<span className="term-blue">whatsapp</span>$ <span className="term-cursor">▋</span><span className="term-note">Read-only preview · messages are not sent from this panel yet</span></footer>
           </section>}
         </div>
-        <footer className="status"><span><i/> {loaded ? (isWhatsApp ? 'WhatsApp session' : 'Page session') : 'Connecting'}</span><span className="status-fill"/><span>Corporate Tragedy</span><span>Iteration 01</span></footer>
+        <footer className="status"><span><i/> {loaded ? (isWhatsApp ? 'WhatsApp session' : 'Page session') : 'Connecting'}</span><span className="status-fill"/><span>Corporate Tragedy</span><span>Local beta</span></footer>
       </main>
     </div>
   </div>;
