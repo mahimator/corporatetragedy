@@ -32,10 +32,11 @@
     },
     {
       "serial": "CT-20261119-1043-76",
-      "status": "pending",
+      "status": "detected",
       "iteration": 1,
       "prompt": "run the command git status --short --branch && node -v in terminal",
-      "createdAt": "2026-11-19T07:43:37.245Z"
+      "createdAt": "2026-11-19T07:43:37.245Z",
+      "detectedAt": "2026-11-19T07:43:50.004Z"
     }
   ]
 }
