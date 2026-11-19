@@ -143,6 +143,22 @@
       "passed": true,
       "stdout": "\n> corporate-tragedy@0.1.0 build\n> tsc --noEmit && vite build\n\nvite v5.4.21 building for production...\ntransforming...\n✓ 1581 modules transformed.\nrendering chunks...\ncomputing gzip size...\ndist/index.html                   0.37 kB │ gzip:  0.27 kB\ndist/assets/index-D3WHcVe9.css    8.68 kB │ gzip:  2.56 kB\ndist/assets/index-0R2ahE5-.js   158.31 kB │ gzip: 50.59 kB\n✓ built in 4.94s\npackage metadata verified: electron/main.cjs build script present\n",
       "stderr": ""
+    },
+    {
+      "serial": "CT-20261119-1300-54",
+      "iteration": 1,
+      "tag": "first output",
+      "command": "npm run build && node --check electron/main.cjs && node --check agentFiles/bridge.mjs && node --check agentFiles/cli.mjs && node --check agentFiles/lib.mjs && node -e \"const p=require('./package.json');if(p.name!=='corporate-tragedy'||p.main!=='electron/main.cjs'||!p.scripts.dev||!p.scripts.build)process.exit(1);console.log('app metadata valid')\"",
+      "cwd": "/Users/madhavtrivedi/corporatetragedy",
+      "ranAt": "2026-11-19T07:56:20.890Z",
+      "exitCode": 0,
+      "signal": null,
+      "timedOut": false,
+      "truncated": false,
+      "durationMs": 6858,
+      "passed": true,
+      "stdout": "\n> corporate-tragedy@0.1.0 build\n> tsc --noEmit && vite build\n\nvite v5.4.21 building for production...\ntransforming...\n✓ 1581 modules transformed.\nrendering chunks...\ncomputing gzip size...\ndist/index.html                   0.37 kB │ gzip:  0.27 kB\ndist/assets/index-D3WHcVe9.css    8.68 kB │ gzip:  2.56 kB\ndist/assets/index-CeuzlioX.js   158.51 kB │ gzip: 50.65 kB\n✓ built in 3.66s\napp metadata valid\n",
+      "stderr": ""
     }
   ]
 }
