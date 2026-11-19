@@ -170,7 +170,7 @@ export default function App() {
     };
     window.addEventListener('keydown', handleShortcut);
     return () => window.removeEventListener('keydown', handleShortcut);
-  }, []);
+  }, [canGoBack, canGoForward, terminalMode]);;
 
   const refreshNavigation = () => {
     setCanGoBack(!!webview.current?.canGoBack?.());
