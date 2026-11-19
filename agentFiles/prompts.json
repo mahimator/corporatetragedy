@@ -264,11 +264,12 @@
     },
     {
       "serial": "CT-20261119-1554-31",
-      "status": "pending",
+      "status": "detected",
       "iteration": 1,
       "prompt": "run the command npm approve-scripts esbuild && npm rebuild electron && node -e 'const e=require(\"electron\");const fs=require(\"node:fs\");console.log(\"Electron path:\",e);fs.accessSync(e,fs.constants.X_OK);console.log(\"Electron executable verified\")' in terminal",
       "createdAt": "2026-11-19T08:54:00.000Z",
-      "note": "Approve only esbuild's binary-install script as identified by npm, then rebuild Electron and verify executable path"
+      "note": "Approve only esbuild's binary-install script as identified by npm, then rebuild Electron and verify executable path",
+      "detectedAt": "2026-11-19T08:05:43.814Z"
     }
   ]
 }
