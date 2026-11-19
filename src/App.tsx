@@ -4,6 +4,7 @@ import { ArrowLeft, ArrowRight, RefreshCw, Plus, MessageCircle, PanelLeft, Exter
 type Chat = { name: string; preview: string; index: number };
 type Message = { text: string; outgoing: boolean };
 type Bookmark = { title: string; url: string };
+type BrowserTab = { id: number; url: string; title: string; loaded: boolean; error: string; canGoBack: boolean; canGoForward: boolean };
 
 const HOME_URL = 'https://web.whatsapp.com/';
 const isWhatsAppURL = (value: string) => {
@@ -31,9 +32,13 @@ const normalizeUrl = (input: string) => {
 };
 
 export default function App() {
-  const webview = useRef<any>(null);
+  const webviews = useRef<Record<number, any>>({});
   const [loaded, setLoaded] = useState(false);
   const [address, setAddress] = useState(HOME_URL);
+  const [tabs, setTabs] = useState<BrowserTab[]>([{ id: 1, url: HOME_URL, title: 'WhatsApp', loaded: false, error: '', canGoBack: false, canGoForward: false }]);
+  const [activeTabId, setActiveTabId] = useState(1);
+  const nextTabId = useRef(2);
+  const activeTab = tabs.find(tab => tab.id === activeTabId) ?? tabs[0];
   const [sidebar, setSidebar] = useState(true);
   const [terminalMode, setTerminalMode] = useState(false);
   const [chats, setChats] = useState<Chat[]>([]);
@@ -63,6 +68,9 @@ export default function App() {
     else setBookmarks(list => [...list, { title: isWhatsApp ? 'WhatsApp' : (pageTitle !== 'WhatsApp' ? pageTitle : new URL(url).hostname), url }]);
   };
 
+  const getWebview = (id = activeTabId) => webviews.current[id];
+  const updateTab = (id: number, patch: Partial<BrowserTab>) => setTabs(list => list.map(tab => tab.id === id ? { ...tab, ...patch } : tab));
+
   const clearWorkspace = () => {
     setChats([]);
     setMessages([]);
@@ -79,14 +87,14 @@ export default function App() {
     setAddress(url);
     setLoaded(false);
     setLoadError('');
+    updateTab(activeTabId, { url, loaded: false, error: '' });
     clearWorkspace();
-    webview.current?.loadURL(url);
   };
 
   const scanChats = async () => {
-    if (!webview.current || !loaded || !isWhatsApp) return;
+    if (!getWebview() || !loaded || !isWhatsApp) return;
     try {
-      const rows = await webview.current.executeJavaScript(`(() => {
+      const rows = await getWebview().executeJavaScript(`(() => {
         const els = Array.from(document.querySelectorAll('[data-testid="cell-frame-container"]'));
         return els.map((el, index) => {
           const txt = (el.innerText || '').split('\\n').map(s => s.trim()).filter(Boolean);
@@ -101,9 +109,9 @@ export default function App() {
   };
 
   const openChat = async (chat: Chat) => {
-    if (!webview.current || !isWhatsApp) return;
+    if (!getWebview() || !isWhatsApp) return;
     try {
-      await webview.current.executeJavaScript(`document.querySelectorAll('[data-testid="cell-frame-container"]')[${Number(chat.index)}]?.click()`);
+      await getWebview().executeJavaScript(`document.querySelectorAll('[data-testid="cell-frame-container"]')[${Number(chat.index)}]?.click()`);
       setActiveChat(chat.name);
       setMessages([]);
       window.setTimeout(() => void scanMessages(), 500);
@@ -113,9 +121,9 @@ export default function App() {
   };
 
   const scanMessages = async () => {
-    if (!webview.current || !loaded || !isWhatsApp) return;
+    if (!getWebview() || !loaded || !isWhatsApp) return;
     try {
-      const result = await webview.current.executeJavaScript(`(() => {
+      const result = await getWebview().executeJavaScript(`(() => {
         const nodes = Array.from(document.querySelectorAll('[data-testid="msg-container"]'));
         return nodes.slice(-80).map(n => ({
           text: n.innerText || '',
@@ -138,28 +146,63 @@ export default function App() {
   }, [loaded, isWhatsApp, terminalMode, activeChat]);
 
   useEffect(() => {
-    const view = webview.current;
-    if (!view) return;
-    const handleNavigation = (event: any) => {
-      if (!event.url) return;
-      setAddress(event.url);
-      setLoadError('');
-      if (!isWhatsAppURL(event.url)) clearWorkspace();
-      refreshNavigation();
-    };
-    const handleStart = () => setLoaded(false);
-    const handleStop = () => { setLoaded(true); refreshNavigation(); };
-    view.addEventListener('did-navigate', handleNavigation);
-    view.addEventListener('did-navigate-in-page', handleNavigation);
-    view.addEventListener('did-start-loading', handleStart);
-    view.addEventListener('did-stop-loading', handleStop);
-    return () => {
-      view.removeEventListener('did-navigate', handleNavigation);
-      view.removeEventListener('did-navigate-in-page', handleNavigation);
-      view.removeEventListener('did-start-loading', handleStart);
-      view.removeEventListener('did-stop-loading', handleStop);
-    };
-  }, []);
+    const cleanups: Array<() => void> = [];
+    tabs.forEach(tab => {
+      const view = getWebview(tab.id);
+      if (!view) return;
+      const handleNavigation = (event: any) => {
+        if (!event.url) return;
+        updateTab(tab.id, { url: event.url, error: '' });
+        if (tab.id === activeTabId) {
+          setAddress(event.url);
+          setLoadError('');
+          if (!isWhatsAppURL(event.url)) clearWorkspace();
+          refreshNavigation(tab.id);
+        }
+      };
+      const handleStart = () => {
+        updateTab(tab.id, { loaded: false });
+        if (tab.id === activeTabId) setLoaded(false);
+      };
+      const handleStop = () => {
+        updateTab(tab.id, { loaded: true });
+        if (tab.id === activeTabId) { setLoaded(true); refreshNavigation(tab.id); }
+      };
+      const handleReady = () => {
+        const title = view.getTitle?.() || tab.title;
+        updateTab(tab.id, { loaded: true, title });
+        if (tab.id === activeTabId) { setLoaded(true); setPageTitle(title); setLoadError(''); refreshNavigation(tab.id); void scanChats(); }
+      };
+      const handleFailure = (event: any) => {
+        if (event.errorCode === -3) return;
+        const error = event.errorDescription || 'Page failed to load';
+        updateTab(tab.id, { loaded: false, error });
+        if (tab.id === activeTabId) { setLoaded(false); setLoadError(error); }
+      };
+      const handleTitle = (event: any) => {
+        const title = event.title || tab.title;
+        updateTab(tab.id, { title });
+        if (tab.id === activeTabId) setPageTitle(title);
+      };
+      view.addEventListener('did-navigate', handleNavigation);
+      view.addEventListener('did-navigate-in-page', handleNavigation);
+      view.addEventListener('did-start-loading', handleStart);
+      view.addEventListener('did-stop-loading', handleStop);
+      view.addEventListener('dom-ready', handleReady);
+      view.addEventListener('did-fail-load', handleFailure);
+      view.addEventListener('page-title-updated', handleTitle);
+      cleanups.push(() => {
+        view.removeEventListener('did-navigate', handleNavigation);
+        view.removeEventListener('did-navigate-in-page', handleNavigation);
+        view.removeEventListener('did-start-loading', handleStart);
+        view.removeEventListener('did-stop-loading', handleStop);
+        view.removeEventListener('dom-ready', handleReady);
+        view.removeEventListener('did-fail-load', handleFailure);
+        view.removeEventListener('page-title-updated', handleTitle);
+      });
+    });
+    return () => cleanups.forEach(cleanup => cleanup());
+  }, [tabs.map(tab => tab.id).join(','), activeTabId]);
 
 
   useEffect(() => {
@@ -174,15 +217,15 @@ export default function App() {
         event.preventDefault();
         setLoaded(false);
         setLoadError('');
-        webview.current?.reload();
+        getWebview()?.reload();
       }
       if ((event.altKey || event.metaKey) && event.key === 'ArrowLeft' && canGoBack) {
         event.preventDefault();
-        webview.current?.goBack();
+        getWebview()?.goBack();
       }
       if ((event.altKey || event.metaKey) && event.key === 'ArrowRight' && canGoForward) {
         event.preventDefault();
-        webview.current?.goForward();
+        getWebview()?.goForward();
       }
       if (event.key === 'Escape' && terminalMode) {
         setTerminalMode(false);
@@ -193,9 +236,12 @@ export default function App() {
     return () => window.removeEventListener('keydown', handleShortcut);
   }, [canGoBack, canGoForward, terminalMode]);;
 
-  const refreshNavigation = () => {
-    setCanGoBack(!!webview.current?.canGoBack?.());
-    setCanGoForward(!!webview.current?.canGoForward?.());
+  const refreshNavigation = (id = activeTabId) => {
+    const view = getWebview(id);
+    const back = !!view?.canGoBack?.();
+    const forward = !!view?.canGoForward?.();
+    updateTab(id, { canGoBack: back, canGoForward: forward });
+    if (id === activeTabId) { setCanGoBack(back); setCanGoForward(forward); }
   };
 
   return <div className="browser">
