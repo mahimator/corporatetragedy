@@ -170,7 +170,6 @@ export default function App() {
         <div className="webview-wrap">
           <webview ref={webview} src={HOME_URL} partition="persist:whatsapp" useragent="Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/130.0.0.0 Safari/537.36" allowpopups className="webview"
             onDomReady={() => {setLoaded(true);setLoadError('');refreshNavigation();void scanChats();}}
-            onDidStartNavigation={() => {setLoaded(false);refreshNavigation();}}
             onDidNavigate={(e:any) => {if(e.url){setAddress(e.url);setLoaded(true);setLoadError('');if(!isWhatsAppURL(e.url))clearWorkspace();}refreshNavigation();}}
             onDidNavigateInPage={(e:any) => {if(e.url){setAddress(e.url);if(!isWhatsAppURL(e.url))clearWorkspace();}refreshNavigation();}}
             onDidFailLoad={(e:any) => {if(e.errorCode !== -3) setLoadError(e.errorDescription || 'Page failed to load');}}
