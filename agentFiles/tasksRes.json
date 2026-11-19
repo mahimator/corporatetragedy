@@ -63,6 +63,22 @@
       "passed": true,
       "stdout": "## main...origin/main\nv26.5.0\n",
       "stderr": ""
+    },
+    {
+      "serial": "CT-20261119-1045-38",
+      "iteration": 1,
+      "tag": "first output",
+      "command": "npm run build",
+      "cwd": "/Users/madhavtrivedi/corporatetragedy",
+      "ranAt": "2026-11-19T07:45:55.925Z",
+      "exitCode": 0,
+      "signal": null,
+      "timedOut": false,
+      "truncated": false,
+      "durationMs": 3281,
+      "passed": true,
+      "stdout": "\n> leisure-workbench@0.1.0 build\n> tsc --noEmit && vite build\n\nvite v5.4.21 building for production...\ntransforming...\n✓ 1581 modules transformed.\nrendering chunks...\ncomputing gzip size...\ndist/index.html                   0.36 kB │ gzip:  0.27 kB\ndist/assets/index-Dpby62bZ.css    7.32 kB │ gzip:  2.24 kB\ndist/assets/index-D9NLrQ5o.js   155.99 kB │ gzip: 49.78 kB\n✓ built in 1.42s\n",
+      "stderr": ""
     }
   ]
 }
