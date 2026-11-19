@@ -275,12 +275,14 @@
     },
     {
       "serial": "CT-20261119-1601-27",
-      "status": "detected",
+      "status": "ran (1)",
       "iteration": 1,
       "prompt": "run the command npm --version && node -e 'console.log(\"project allowScripts:\",require(\"./package.json\").allowScripts);console.log(\"Electron scripts:\",require(\"electron/package.json\").scripts);const fs=require(\"node:fs\");for(const p of [\"node_modules/electron/path.txt\",\"node_modules/electron/dist/version\",\"node_modules/electron/dist/Electron.app/Contents/MacOS/Electron\"])console.log(p,fs.existsSync(p),fs.existsSync(p)?fs.statSync(p).size:0)' in terminal",
       "createdAt": "2026-11-19T09:01:00.000Z",
       "note": "Check npm version, approved script field, Electron lifecycle script and install metadata",
-      "detectedAt": "2026-11-19T08:06:04.327Z"
+      "detectedAt": "2026-11-19T08:06:04.327Z",
+      "ranAt": "2026-11-19T08:06:08.173Z",
+      "exitCode": 0
     }
   ]
 }
