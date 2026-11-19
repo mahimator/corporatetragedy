@@ -187,12 +187,14 @@
     },
     {
       "serial": "CT-20261119-1510-02",
-      "status": "detected",
+      "status": "ran (1)",
       "iteration": 1,
       "prompt": "run the command ps -p 20783 -o pid,comm && node -e 'const http=require(\"node:http\");const r=http.get(\"http://127.0.0.1:5173\",res=>{console.log(\"dev server status:\",res.statusCode);res.resume()});r.on(\"error\",e=>{console.error(e.message);process.exitCode=1})' in terminal",
       "createdAt": "2026-11-19T08:10:00.000Z",
       "note": "Verify detached Electron process and dev server are still live after launch",
-      "detectedAt": "2026-11-19T08:02:59.169Z"
+      "detectedAt": "2026-11-19T08:02:59.169Z",
+      "ranAt": "2026-11-19T08:03:03.685Z",
+      "exitCode": 1
     }
   ]
 }

@@ -271,6 +271,22 @@
       "passed": true,
       "stdout": "Electron desktop launch requested. PID: 20783\n",
       "stderr": ""
+    },
+    {
+      "serial": "CT-20261119-1510-02",
+      "iteration": 1,
+      "tag": "first output",
+      "command": "ps -p 20783 -o pid,comm && node -e 'const http=require(\"node:http\");const r=http.get(\"http://127.0.0.1:5173\",res=>{console.log(\"dev server status:\",res.statusCode);res.resume()});r.on(\"error\",e=>{console.error(e.message);process.exitCode=1})'",
+      "cwd": "/Users/madhavtrivedi/corporatetragedy",
+      "ranAt": "2026-11-19T08:03:03.685Z",
+      "exitCode": 1,
+      "signal": null,
+      "timedOut": false,
+      "truncated": false,
+      "durationMs": 58,
+      "passed": false,
+      "stdout": "  PID COMM\n",
+      "stderr": ""
     }
   ]
 }
