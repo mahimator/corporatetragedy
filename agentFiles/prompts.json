@@ -253,12 +253,14 @@
     },
     {
       "serial": "CT-20261119-1551-03",
-      "status": "detected",
+      "status": "ran (1)",
       "iteration": 1,
       "prompt": "run the command npm approve-scripts --allow-scripts-pending in terminal",
       "createdAt": "2026-11-19T08:51:00.000Z",
       "note": "Identify remaining npm install-script approvals after approving Electron",
-      "detectedAt": "2026-11-19T08:05:22.294Z"
+      "detectedAt": "2026-11-19T08:05:22.294Z",
+      "ranAt": "2026-11-19T08:05:26.905Z",
+      "exitCode": 0
     }
   ]
 }
