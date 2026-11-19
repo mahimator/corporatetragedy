@@ -5,3 +5,4 @@ dist/
 # local bridge runtime artifacts
 agentFiles/.bridge.log
 agentFiles/*.tmp
+agentFiles/.launchd.*.log
