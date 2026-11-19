@@ -1,74 +1,69 @@
 # M0: Native Chromium build proof
 
-M0 is intentionally limited to proving that the chosen native browser foundation builds and launches.
+M0 is intentionally limited to proving that the selected CEF foundation builds and launches.
 
 ## Host target
 
 - macOS
 - Apple Silicon (arm64)
-- Xcode command-line tools
-- CMake
-- Ninja
-- Qt 6
-- CEF binary distribution matching the host architecture and the selected Xcode/SDK requirements
+- Xcode and command-line tools
+- CMake and Ninja
+- Python 3
+- CEF binary distribution matching host architecture and selected Xcode/SDK
 
 ## Toolchain verification
 
-Run:
+Run from the repository root:
 
 ```sh
-xcode-select -p
-xcodebuild -version
-clang --version
-cmake --version
-ninja --version
-brew --prefix qt
+bash scripts/check_m0.sh
 ```
 
-If Qt is installed using Homebrew, use the installed Qt 6 package path. Do not assume the path if multiple Qt versions are present.
+## CEF strategy
 
-## CEF choice
+Use a stable CEF release branch and its prebuilt macOS arm64 distribution. Record CEF branch/version, bundled Chromium version, archive URL and checksum, Xcode/SDK, CMake and Ninja versions.
 
-Use a stable CEF release branch and its matching prebuilt macOS arm64 distribution. Record:
+Do not build Chromium from source for M0. Use the official CEF `cefsimple` sample as the baseline. It already includes CEF's macOS entry point, resource layout, wrapper configuration and application bundle setup.
 
-- CEF branch and version
-- Chromium version bundled in that CEF release
-- CEF archive URL and checksum
-- Xcode version and SDK
-- Qt version
-- CMake and Ninja versions
+Official tutorial: https://chromiumembedded.github.io/cef/tutorial
 
-Do not build Chromium from source for M0. The CEF source build requires substantial disk space and RAM and is unnecessary for this proof.
+## Sequence
 
-## Project approach
+1. Run the toolchain checker on the development Mac.
+2. Select a CEF binary distribution compatible with the installed Xcode and SDK.
+3. Build and launch the upstream `cefsimple` sample without modifications.
+4. Confirm normal HTTPS navigation.
+5. Confirm clean shutdown and browser subprocess handling.
+6. Confirm a dedicated user profile directory and cookie/session persistence.
+7. Only then create the Corporate Tragedy fork of the sample.
 
-Start from the official CEF `cefsimple` sample and its provided CMake configuration. It already includes CEF's macOS entry point, resource layout, wrapper library configuration and application bundle setup. We will make the first Corporate Tragedy changes only after the upstream sample builds.
+## Architecture integration spike
 
-Official reference: https://chromiumembedded.github.io/cef/tutorial
+Before selecting the full UI shell, compare direct native CEF integration with CEF embedded in Qt 6. Evaluate lifecycle, input/focus, profile persistence, packaging, and platform portability. Qt is a candidate shell, not a locked requirement.
 
 ## Verification checklist
 
-- [ ] CEF distribution downloaded and checksum verified
-- [ ] CEF sample builds with local toolchain
-- [ ] Native macOS app launches
-- [ ] A normal HTTPS page navigates successfully
-- [ ] Browser subprocesses launch and shut down cleanly
-- [ ] Profile data is stored in a dedicated user-data directory
-- [ ] Relaunch preserves a test cookie/session
-- [ ] No UA override or WhatsApp-specific workaround is present
+- [ ] CEF package selected for macOS arm64
+- [ ] Version, Chromium version, archive and checksum recorded
+- [ ] Official sample builds
+- [ ] App launches
+- [ ] HTTPS navigation succeeds
+- [ ] Browser subprocesses shut down cleanly
+- [ ] Profile data persists between launches
+- [ ] No UA overrides or WhatsApp-specific hacks
+- [ ] CEF third-party notices included
 
-## Profile location
+## Profile storage
 
-Development profile should be stored under the user's Application Support directory, within a Corporate Tragedy folder. It must not be stored inside the source tree or CEF bundle.
+Development profile must live in the user's Application Support directory under Corporate Tragedy, never inside the source tree or CEF framework bundle.
 
-## Build artifacts and repository hygiene
+## Repository hygiene
 
-- Keep downloaded CEF binaries out of git.
-- Keep build output out of git.
-- Pin the CEF revision in a local configuration or lock file.
-- Keep the CEF third-party notices available in the app and repository.
-- Avoid installing or enabling third-party integrations during M0.
+- Do not commit downloaded CEF binaries.
+- Do not commit build outputs.
+- Pin the CEF revision.
+- Track CEF/Chromium security updates and establish an update cadence before release.
 
-## Exit criteria
+## Exit condition
 
-M0 is complete only when the app launches a Chromium browser, navigates normally, and persists a profile across restarts. Screenshots or CI logs should prove this. A successful CMake configure alone is not sufficient.
+A repeatable local build launches Chromium through CEF, navigates normally, and persists a profile. CMake configuration alone does not count.
