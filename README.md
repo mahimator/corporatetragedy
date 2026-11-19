@@ -1,19 +1,24 @@
 # Corporate Tragedy
 
-A workstation-style browser for a focused personal workspace. The first integration is WhatsApp Web, using an isolated persistent session.
+A workstation-style desktop browser for a focused personal workspace. The first integration is WhatsApp Web, with a persistent isolated session.
 
 ## Current scope
 
 - Desktop shell built with Electron and React
-- Browser navigation and address bar for HTTP and HTTPS pages
+- HTTP and HTTPS navigation
+- Address bar accepts URLs or plain search queries (DuckDuckGo)
+- Back, forward, reload, and external-browser navigation
 - Persistent WhatsApp Web session (`persist:whatsapp`)
 - Optional workspace sidebar
-- Read-only WhatsApp chat preview panel, currently based on WhatsApp's DOM and therefore experimental
+- Read-only WhatsApp chat preview panel (experimental and DOM-dependent)
 
 ## Keyboard shortcuts
 
 - `⌘/Ctrl + L`: focus and select the address bar
 - `⌘/Ctrl + R`: reload the current page
+- `⌥/Alt + ←`: back
+- `⌥/Alt + →`: forward
+- `Escape`: close the Chat Terminal overlay
 
 ## Run locally
 
@@ -24,9 +29,11 @@ npm install
 npm run dev
 ```
 
-
 Electron launches the desktop shell. WhatsApp login persists in the `persist:whatsapp` partition.
 
+## Experimental Chat Terminal
+
+The Chat Terminal reads the WhatsApp chat list and a limited recent message view from the page DOM. It is read-only and does not send messages. WhatsApp may change its markup at any time, so this feature is experimental.
 
 ## Terminal bridge
 
@@ -35,7 +42,6 @@ ChatGPT Web can queue occasional local build/test commands through GitHub. The b
 ```bash
 npm run bridge
 npm run bridge:status
-`
+```
 
-
-This first iteration intentionally keeps integrations narrow. No fake terminal, inspector, or placeholder IDE apps are included.
+The first beta intentionally keeps integrations narrow and avoids placeholder tools that do not work yet.
