@@ -1,0 +1,10 @@
+{
+  "prompts": [
+    {
+      "serial": "CT-20261119-1032-01",
+      "status": "pending",
+      "iteration": 1,
+      "prompt": "run the command pwd && printf '\\n--- OS ---\\n' && uname -a && printf '\\n--- repository status ---\\n' && git status --short --branch && printf '\\n--- top-level files ---\\n' && ls -la in terminal"
+    }
+  ]
+}
