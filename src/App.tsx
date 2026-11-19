@@ -96,10 +96,10 @@ export default function App() {
       <main className="content">
         <div className="content-heading"><div className="crumb"><span>workspace</span><span className="sep">/</span><b>whatsapp</b></div><div className="heading-tools"><button className={terminalMode?'modebtn active':'modebtn'} onClick={()=>{setTerminalMode(v=>!v);if(!terminalMode)scanChats();}}><Terminal size={13}/> Chat Terminal</button><span className="connection"><i/> SESSION</span></div></div>
         <div className="webview-wrap">
-          <webview ref={webview} src="https://web.whatsapp.com/" partition="persist:whatsapp" allowpopups className="webview"
+          <webview ref={webview} src="https://web.whatsapp.com/" partition="persist:whatsapp" useragent="Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/130.0.0.0 Safari/537.36" allowpopups className="webview"
             onDomReady={() => {setLoaded(true);setLoadError('');scanChats();}}
             onDidFailLoad={(e:any) => {if(e.errorCode !== -3) setLoadError(e.errorDescription || 'WhatsApp failed to load');}}
-            onConsoleMessage={(e:any)=>console.log('[WhatsApp]',e.message)}
+            onConsoleMessage={(e:any)=>console.warn('[WhatsApp guest console]',e.message)}
             onTitleUpdated={(e:any)=>setPageTitle(e.title || 'WhatsApp')}/>
           {!loaded && <div className="loadscreen"><div className="loadmark"><MessageCircle size={28}/></div><div className="loading-title">Opening WhatsApp</div><div className="loading-sub">{loadError || 'QR login should appear here. First launch may ask you to scan it.'}</div>{loadError && <div className="error-hint"><AlertTriangle size={13}/> Webview load error</div>}<div className="loading-track"><div/></div></div>}
           {terminalMode && <section className="terminal-layer">
