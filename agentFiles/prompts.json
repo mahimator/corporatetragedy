@@ -52,7 +52,7 @@
     },
     {
       "serial": "CT-20261119-1121-64",
-      "status": "ran (1)",
+      "status": "failed",
       "iteration": 1,
       "prompt": "run the command npm run build && node -e \"const p=require('./package.json');if(!p.scripts.build||!p.main)process.exit(1);console.log('package metadata verified:',p.main,'build script present')\" in terminal",
       "createdAt": "2026-11-19T07:49:30.370Z",
@@ -60,6 +60,15 @@
       "detectedAt": "2026-11-19T07:49:33.362Z",
       "ranAt": "2026-11-19T07:49:41.059Z",
       "exitCode": 2
+    },
+    {
+      "serial": "CT-20261119-1152-31",
+      "status": "pending",
+      "iteration": 2,
+      "prompt": "run the command npm run build && node -e \"const p=require('./package.json');if(!p.scripts.build||!p.main)process.exit(1);console.log('package metadata verified:',p.main,'build script present')\" in terminal",
+      "createdAt": "2026-11-19T07:50:20.099Z",
+      "retryOf": "CT-20261119-1121-64",
+      "note": "Re-run batched build after JSX and Electron event typing corrections"
     }
   ]
 }
