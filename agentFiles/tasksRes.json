@@ -239,6 +239,22 @@
       "passed": true,
       "stdout": "\n> corporate-tragedy@0.1.0 build\n> tsc --noEmit && vite build\n\nvite v5.4.21 building for production...\ntransforming...\n✓ 1581 modules transformed.\nrendering chunks...\ncomputing gzip size...\ndist/index.html                   0.37 kB │ gzip:  0.27 kB\ndist/assets/index-PkkLwZ_f.css    9.39 kB │ gzip:  2.71 kB\ndist/assets/index-C4dLKGZv.js   158.83 kB │ gzip: 50.88 kB\n✓ built in 1.91s\naddress bar encoding and URL normalization cases passed\n",
       "stderr": ""
+    },
+    {
+      "serial": "CT-20261119-1450-28",
+      "iteration": 1,
+      "tag": "first output",
+      "command": "node -e 'const http=require(\"node:http\");const req=http.get(\"http://127.0.0.1:5173\",res=>{let data=\"\";res.on(\"data\",c=>data+=c);res.on(\"end\",()=>{console.log(\"Vite HTTP:\",res.statusCode);console.log(\"HTML root present:\",data.includes(\"id=\\\\\\\"root\\\\\\\"\")||data.includes(\"id=\\\\\\\"app\\\\\\\"\"));if(res.statusCode!==200)process.exitCode=1})});req.on(\"error\",e=>{console.error(\"Vite unavailable:\",e.message);process.exitCode=1})' && ps -ax | grep '[E]lectron.app/Contents/MacOS/Electron'",
+      "cwd": "/Users/madhavtrivedi/corporatetragedy",
+      "ranAt": "2026-11-19T08:02:11.798Z",
+      "exitCode": 1,
+      "signal": null,
+      "timedOut": false,
+      "truncated": false,
+      "durationMs": 284,
+      "passed": false,
+      "stdout": "Vite HTTP: 200\nHTML root present: false\n",
+      "stderr": ""
     }
   ]
 }
