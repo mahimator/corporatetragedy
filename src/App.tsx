@@ -1,10 +1,10 @@
 import { useEffect, useRef, useState } from 'react';
-import { ArrowLeft, ArrowRight, RefreshCw, Plus, MessageCircle, PanelLeft, ExternalLink, Terminal, X, AlertTriangle, ShieldCheck, Bookmark } from 'lucide-react';
+import { ArrowLeft, ArrowRight, RefreshCw, Plus, MessageCircle, Instagram, PanelLeft, ExternalLink, Terminal, X, AlertTriangle, ShieldCheck, Bookmark } from 'lucide-react';
 
 type Chat = { name: string; preview: string; index: number };
 type Message = { text: string; outgoing: boolean };
 type Bookmark = { title: string; url: string };
-type BrowserTab = { id: number; url: string; title: string; loaded: boolean; error: string; canGoBack: boolean; canGoForward: boolean };
+type BrowserTab = { id: number; url: string; title: string; partition: string; loaded: boolean; error: string; canGoBack: boolean; canGoForward: boolean };
 
 const HOME_URL = 'https://web.whatsapp.com/';
 const NEW_TAB_URL = 'https://duckduckgo.com/';
@@ -27,7 +27,7 @@ const normalizeUrl = (input: string) => {
 export default function App() {
   const webviews = useRef<Record<number, any>>({});
   const nextTabId = useRef(2);
-  const [tabs, setTabs] = useState<BrowserTab[]>([{ id: 1, url: HOME_URL, title: 'WhatsApp', loaded: false, error: '', canGoBack: false, canGoForward: false }]);
+  const [tabs, setTabs] = useState<BrowserTab[]>([{ id: 1, url: HOME_URL, title: 'WhatsApp', partition: 'persist:whatsapp', loaded: false, error: '', canGoBack: false, canGoForward: false }]);
   const [activeTabId, setActiveTabId] = useState(1);
   const activeTab = tabs.find(tab => tab.id === activeTabId) ?? tabs[0];
   const [loaded, setLoaded] = useState(false);
@@ -72,8 +72,16 @@ export default function App() {
   };
   const addTab = () => {
     const id = nextTabId.current++; const url = NEW_TAB_URL;
-    const tab: BrowserTab = { id, url, title: 'Search', loaded: false, error: '', canGoBack: false, canGoForward: false };
+    const tab: BrowserTab = { id, url, title: 'Search', partition: `persist:browser-${id}`, loaded: false, error: '', canGoBack: false, canGoForward: false };
     setTabs(list => [...list, tab]); setActiveTabId(id); setAddress(url); setLoaded(false); setLoadError(''); setPageTitle('Search'); setCanGoBack(false); setCanGoForward(false); clearWorkspace();
+  };
+  const openInstagram = () => {
+    const existing = tabs.find(tab => tab.partition === 'persist:instagram');
+    if (existing) { switchTab(existing.id); return; }
+    const id = nextTabId.current++;
+    const url = 'https://www.instagram.com/';
+    const tab: BrowserTab = { id, url, title: 'Instagram', partition: 'persist:instagram', loaded: false, error: '', canGoBack: false, canGoForward: false };
+    setTabs(list => [...list, tab]); setActiveTabId(id); setAddress(url); setLoaded(false); setLoadError(''); setPageTitle('Instagram'); setCanGoBack(false); setCanGoForward(false); clearWorkspace();
   };
   const closeTab = (id: number) => {
     if (tabs.length <= 1) { if (id === activeTabId) go(HOME_URL); return; }
@@ -181,7 +189,7 @@ export default function App() {
     </div>
     <div className="tabstrip">
       {tabs.map(tab => <div key={tab.id} className={tab.id === activeTabId ? 'tab active' : 'tab'} onClick={() => switchTab(tab.id)} role="button" tabIndex={0} title={tab.url}>
-        {tab.id === 1 ? <MessageCircle size={14}/> : <span className="tab-favicon">◉</span>}
+        {tab.partition === 'persist:whatsapp' ? <MessageCircle size={14}/> : tab.partition === 'persist:instagram' ? <Instagram size={14}/> : <span className="tab-favicon">◉</span>}
         <span className="tab-title">{tab.title || 'Web'}</span>
         <button className="tab-close" title="Close tab" onClick={event => {event.stopPropagation();closeTab(tab.id);}}><X size={12}/></button>
       </div>)}
@@ -193,7 +201,7 @@ export default function App() {
         <div className="side-label">WORKSPACE</div>
         <div className="side-group"><span className="chevron">⌄</span> APPS</div>
         <button className="app-row active" onClick={() => go(HOME_URL)}><span className="wa-icon">W</span> WhatsApp <span className="live">●</span></button>
-        <button className="app-row disabled" disabled title="More integrations will be added later"><span className="add-icon">+</span> Add integration</button>
+        <button className="app-row" onClick={openInstagram}><span className="instagram-icon"><Instagram size={13}/></span> Instagram <span className="live">↗</span></button>
         <div className="side-label bookmark-label">BOOKMARKS ({bookmarks.length})</div>
         {!bookmarks.length && <div className="bookmark-empty">Bookmark pages to pin them here.</div>}
         {bookmarks.map((bookmark,index)=><div className="bookmark-row" key={bookmark.url}><button title={bookmark.url} onClick={()=>go(bookmark.url)}><Bookmark size={12}/><span>{bookmark.title}</span></button><button className="bookmark-remove" title="Remove bookmark" onClick={()=>setBookmarks(list=>list.filter((_,i)=>i!==index))}><X size={12}/></button></div>)}
@@ -201,7 +209,7 @@ export default function App() {
       <main className="content">
         <div className="content-heading"><div className="crumb"><span>workspace</span><span className="sep">/</span><b>{isWhatsApp ? 'whatsapp' : 'web'}</b></div><div className="heading-tools"><button className={terminalMode?'modebtn active':'modebtn'} disabled={!isWhatsApp || !loaded} onClick={()=>{setTerminalMode(v=>!v);if(!terminalMode)void scanChats();}}><Terminal size={13}/> Chat Terminal</button><span className="connection"><i className={loaded?'connected':'connecting'}/>{loaded ? ' SESSION' : ' CONNECTING'}</span></div></div>
         <div className="webview-wrap">
-          {tabs.map(tab=><webview key={tab.id} ref={(element:any)=>{if(element)webviews.current[tab.id]=element;else delete webviews.current[tab.id];}} src={tab.url} partition="persist:whatsapp" useragent="Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/130.0.0.0 Safari/537.36" allowpopups className="webview" style={{display:tab.id===activeTabId?'flex':'none'}}/> )}
+          {tabs.map(tab=><webview key={tab.id} ref={(element:any)=>{if(element)webviews.current[tab.id]=element;else delete webviews.current[tab.id];}} src={tab.url} partition={tab.partition} useragent="Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/130.0.0.0 Safari/537.36" allowpopups className="webview" style={{display:tab.id===activeTabId?'flex':'none'}}/> )}
           {!loaded && <div className="loadscreen"><div className="loadmark"><MessageCircle size={28}/></div><div className="loading-title">{isWhatsApp ? 'Opening WhatsApp' : 'Loading workspace'}</div><div className="loading-sub">{loadError || (isWhatsApp ? 'QR login should appear here. First launch may ask you to scan it.' : 'Waiting for the page to finish loading…')}</div>{loadError && <div className="error-hint"><AlertTriangle size={13}/> Navigation error</div>}<div className="loading-track"><div/></div></div>}
           {terminalMode && isWhatsApp && <section className="terminal-layer">
             <header><span><Terminal size={13}/> WHATSAPP TERMINAL</span><button onClick={()=>setTerminalMode(false)} title="Close terminal view"><X size={14}/></button></header>
