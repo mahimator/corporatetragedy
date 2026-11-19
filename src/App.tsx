@@ -13,7 +13,13 @@ const isWhatsAppURL = (value: string) => {
 const normalizeUrl = (input: string) => {
   const value = input.trim();
   if (!value) return null;
-  const candidate = /^[a-zA-Z][a-zA-Z0-9+.-]*:\/\//.test(value) ? value : `https://${value}`;
+
+  // Explicit URLs and host-like inputs navigate directly. Plain language becomes a search.
+  const hasProtocol = /^[a-zA-Z][a-zA-Z0-9+.-]*:\/\//.test(value);
+  const looksLikeHost = !/\s/.test(value) && (/^(localhost|127\.0\.0\.1)(:\d+)?(\/.*)?$/i.test(value) || /^[\w-]+(\.[\w-]+)+(:\d+)?(\/.*)?$/i.test(value));
+  if (!hasProtocol && !looksLikeHost) return `https://duckduckgo.com/?q=${encodeURIComponent(value)}`;
+
+  const candidate = hasProtocol ? value : `https://${value}`;
   try {
     const parsed = new URL(candidate);
     if (!['http:', 'https:'].includes(parsed.protocol)) return null;
