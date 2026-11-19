@@ -165,11 +165,12 @@
     },
     {
       "serial": "CT-20261119-1450-28",
-      "status": "pending",
+      "status": "detected",
       "iteration": 1,
       "prompt": "run the command node -e 'const http=require(\"node:http\");const req=http.get(\"http://127.0.0.1:5173\",res=>{let data=\"\";res.on(\"data\",c=>data+=c);res.on(\"end\",()=>{console.log(\"Vite HTTP:\",res.statusCode);console.log(\"HTML root present:\",data.includes(\"id=\\\\\\\"root\\\\\\\"\")||data.includes(\"id=\\\\\\\"app\\\\\\\"\"));if(res.statusCode!==200)process.exitCode=1})});req.on(\"error\",e=>{console.error(\"Vite unavailable:\",e.message);process.exitCode=1})' && ps -ax | grep '[E]lectron.app/Contents/MacOS/Electron' in terminal",
       "createdAt": "2026-11-19T08:50:00.000Z",
-      "note": "Check existing desktop Electron process and HTTP server without starting another instance or killing the user's process"
+      "note": "Check existing desktop Electron process and HTTP server without starting another instance or killing the user's process",
+      "detectedAt": "2026-11-19T08:02:08.576Z"
     }
   ]
 }
