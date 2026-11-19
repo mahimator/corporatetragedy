@@ -111,6 +111,22 @@
       "passed": false,
       "stdout": "\n> leisure-workbench@0.1.0 build\n> tsc --noEmit && vite build\n\nsrc/App.tsx(8,43): error TS1127: Invalid character.\nsrc/App.tsx(8,44): error TS1434: Unexpected keyword or identifier.\nsrc/App.tsx(8,135): error TS1127: Invalid character.\nsrc/App.tsx(8,139): error TS1127: Invalid character.\nsrc/App.tsx(8,141): error TS1127: Invalid character.\nsrc/App.tsx(8,142): error TS1435: Unknown keyword or identifier. Did you mean 'const'?\n",
       "stderr": ""
+    },
+    {
+      "serial": "CT-20261119-1201-92",
+      "iteration": 3,
+      "tag": "retry output",
+      "command": "npm run build && node -e \"const p=require('./package.json');if(!p.scripts.build||!p.main)process.exit(1);console.log('package metadata verified:',p.main,'build script present')\"",
+      "cwd": "/Users/madhavtrivedi/corporatetragedy",
+      "ranAt": "2026-11-19T07:51:34.338Z",
+      "exitCode": 2,
+      "signal": null,
+      "timedOut": false,
+      "truncated": false,
+      "durationMs": 17208,
+      "passed": false,
+      "stdout": "\n> leisure-workbench@0.1.0 build\n> tsc --noEmit && vite build\n\nsrc/App.tsx(179,13): error TS2322: Type '{ ref: MutableRefObject<any>; src: string; partition: string; useragent: string; allowpopups: true; className: string; onDomReady: () => void; onDidNavigate: (e: any) => void; onDidNavigateInPage: (e: any) => void; onDidFailLoad: (e: any) => void; onConsoleMessage: (e: any) => void; onTitleUpdated: (e: any) => void; }' is not assignable to type 'ClassAttributes<HTMLElement> & HTMLAttributes<HTMLElement> & { src?: string | undefined; partition?: string | undefined; ... 6 more ...; onTitleUpdated?: ((event: { ...; }) => void) | undefined; }'.\n  Property 'onDidNavigate' does not exist on type 'ClassAttributes<HTMLElement> & HTMLAttributes<HTMLElement> & { src?: string | undefined; partition?: string | undefined; ... 6 more ...; onTitleUpdated?: ((event: { ...; }) => void) | undefined; }'.\n",
+      "stderr": ""
     }
   ]
 }
