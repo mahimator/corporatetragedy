@@ -396,11 +396,12 @@
     },
     {
       "serial": "CT-20261119-1712-36",
-      "status": "pending",
+      "status": "detected",
       "iteration": 1,
       "prompt": "run the command npm run build && node --check electron/main.cjs && node --check agentFiles/bridge.mjs && node --check agentFiles/cli.mjs && node --check agentFiles/lib.mjs && ps -p 22817 -o pid,comm && node -e 'const http=require(\"node:http\");http.get(\"http://127.0.0.1:5173\",r=>{console.log(\"dev server:\",r.statusCode);r.resume()}).on(\"error\",e=>{console.error(e.message);process.exitCode=1})' in terminal",
       "createdAt": "2026-11-19T10:12:00.000Z",
-      "note": "Final production build, syntax checks, Electron process check and Vite HTTP check after final bookmark UI tweak"
+      "note": "Final production build, syntax checks, Electron process check and Vite HTTP check after final bookmark UI tweak",
+      "detectedAt": "2026-11-19T08:11:22.571Z"
     }
   ]
 }
