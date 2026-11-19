@@ -1,15 +1,19 @@
 # Corporate Tragedy
 
-A browser that looks and feels like a developer workstation. Social and entertainment apps live inside it, starting with WhatsApp.
+A workstation-style browser for a focused personal workspace. The first integration is WhatsApp Web, using an isolated persistent session.
 
-## Iteration 01: WhatsApp
+## Current scope
 
-- Minimal workstation-inspired browser chrome
-- WhatsApp Web only
-- Browser navigation controls
-- Address bar
-- Persistent WhatsApp login session
-- Simple workspace sidebar
+- Desktop shell built with Electron and React
+- Browser navigation and address bar for HTTP and HTTPS pages
+- Persistent WhatsApp Web session (`persist:whatsapp`)
+- Optional workspace sidebar
+- Read-only WhatsApp chat preview panel, currently based on WhatsApp's DOM and therefore experimental
+
+## Keyboard shortcuts
+
+- `⌘/Ctrl + L`: focus and select the address bar
+- `⌘/Ctrl + R`: reload the current page
 
 ## Run locally
 
@@ -20,18 +24,18 @@ npm install
 npm run dev
 ```
 
+
 Electron launches the desktop shell. WhatsApp login persists in the `persist:whatsapp` partition.
 
-This iteration intentionally contains no terminal panel, inspector, fake IDE modules, or other app placeholders. Future integrations will be added incrementally.
 
 ## Terminal bridge
 
-ChatGPT Web can queue real terminal commands through GitHub and read the output back.
-See [`agentFiles/README.md`](agentFiles/README.md).
+ChatGPT Web can queue occasional local build/test commands through GitHub. The bridge is an execution tool, not a development loop. See [`agentFiles/README.md`](./agentFiles/README.md).
 
 ```bash
-npm run bridge          # watch prompts.json, run them, publish results
-npm run bridge:status   # queue + results overview
-npm run prompt -- "run the command git status in terminal"
-```
+npm run bridge
+npm run bridge:status
+`
 
+
+This first iteration intentionally keeps integrations narrow. No fake terminal, inspector, or placeholder IDE apps are included.
