@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from 'react';
-import { ArrowLeft, ArrowRight, RefreshCw, Plus, MessageCircle, Search, Settings, PanelLeft, ExternalLink, Terminal, X, AlertTriangle, ShieldCheck } from 'lucide-react';
+import { ArrowLeft, ArrowRight, RefreshCw, Plus, MessageCircle, PanelLeft, ExternalLink, Terminal, X, AlertTriangle, ShieldCheck } from 'lucide-react';
 
 type Chat = { name: string; preview: string; index: number };
 type Message = { text: string; outgoing: boolean };
@@ -169,7 +169,7 @@ export default function App() {
     <header className="windowbar">
       <div className="brand"><span className="brand-glyph">CT</span><span>corporate tragedy</span></div>
       <div className="window-title">{pageTitle} <span className="title-dot">●</span> Work environment</div>
-      <div className="window-actions"><button title="Preferences"><Settings size={14}/></button></div>
+      <div className="window-actions" aria-hidden="true"></div>
     </header>
     <div className="browserbar">
       <button className="navbtn" title="Back" disabled={!canGoBack} onClick={() => webview.current?.goBack()}><ArrowLeft size={15}/></button>
@@ -185,7 +185,7 @@ export default function App() {
     </div>
     <div className="tabstrip">
       <div className="tab active"><MessageCircle size={14}/><span>{isWhatsApp ? 'WhatsApp' : pageTitle || 'Web'}</span><span className="tab-close">×</span></div>
-      <button className="addtab" title="Add integration (coming later)"><Plus size={14}/></button>
+      <button className="addtab" title="Additional tabs are not available yet" disabled><Plus size={14}/></button>
       <div className="tabspace"/>
     </div>
     <div className="workspace">
@@ -193,8 +193,8 @@ export default function App() {
         <div className="side-label">WORKSPACE</div>
         <div className="side-group"><span className="chevron">⌄</span> APPS</div>
         <button className="app-row active" onClick={() => go(HOME_URL)}><span className="wa-icon">W</span> WhatsApp <span className="live">●</span></button>
-        <button className="app-row disabled" disabled><span className="add-icon">+</span> Add integration</button>
-        <div className="side-bottom"><button><Search size={14}/> Find</button><button><Settings size={14}/> Preferences</button></div>
+        <button className="app-row disabled" disabled title="More integrations will be added later"><span className="add-icon">+</span> Add integration</button>
+        
       </aside>}
       <main className="content">
         <div className="content-heading"><div className="crumb"><span>workspace</span><span className="sep">/</span><b>{isWhatsApp ? 'whatsapp' : 'web'}</b></div><div className="heading-tools"><button className={terminalMode?'modebtn active':'modebtn'} disabled={!isWhatsApp || !loaded} onClick={()=>{setTerminalMode(v=>!v);if(!terminalMode)void scanChats();}}><Terminal size={13}/> Chat Terminal</button><span className="connection"><i className={loaded?'connected':'connecting'}/>{loaded ? ' SESSION' : ' CONNECTING'}</span></div></div>
