@@ -511,6 +511,22 @@
       "passed": true,
       "stdout": "SHA256 expected=9c763751c280b20ec93cecdc7f369bed876fc6728863a9ba5d7435096401f048 actual=9c763751c280b20ec93cecdc7f369bed876fc6728863a9ba5d7435096401f048\nresolved binary: /Users/madhavtrivedi/corporatetragedy/node_modules/electron/dist/Electron.app/Contents/MacOS/Electron\nruntime executable verified\n",
       "stderr": ""
+    },
+    {
+      "serial": "CT-20261119-1647-81",
+      "iteration": 1,
+      "tag": "first output",
+      "command": "node -e 'const {spawn}=require(\"node:child_process\");const p=spawn(\"./node_modules/.bin/electron\",[\".\"],{stdio:[\"ignore\",\"pipe\",\"pipe\"]});let o=\"\",e=\"\";p.stdout.on(\"data\",d=>o+=d);p.stderr.on(\"data\",d=>e+=d);p.on(\"error\",x=>{console.error(x.message);process.exitCode=1});p.on(\"exit\",(code,signal)=>{console.log(\"Electron exited early:\",code,signal);console.log(o);console.error(e)});setTimeout(()=>{if(p.exitCode===null){console.log(\"Electron stayed alive for 10 seconds\");p.kill(\"SIGTERM\");setTimeout(()=>{console.log(\"STDOUT:\",o);console.error(\"STDERR:\",e)},800)}},10000)'",
+      "cwd": "/Users/madhavtrivedi/corporatetragedy",
+      "ranAt": "2026-11-19T08:09:49.146Z",
+      "exitCode": 0,
+      "signal": null,
+      "timedOut": false,
+      "truncated": false,
+      "durationMs": 11899,
+      "passed": true,
+      "stdout": "Electron stayed alive for 10 seconds\nSTDOUT: \nElectron exited early: 0 null\n\n",
+      "stderr": "STDERR: \n\n"
     }
   ]
 }
