@@ -231,11 +231,12 @@
     },
     {
       "serial": "CT-20261119-1538-70",
-      "status": "pending",
+      "status": "detected",
       "iteration": 1,
       "prompt": "run the command npm rebuild electron && node -e 'const e=require(\"electron\");console.log(\"Electron binary path:\",e);const fs=require(\"node:fs\");if(!fs.existsSync(e))process.exit(1);console.log(\"Electron binary exists and is executable\")' in terminal",
       "createdAt": "2026-11-19T08:38:00.000Z",
-      "note": "Repair incomplete Electron package by rerunning its binary installer, then verify the resolved executable"
+      "note": "Repair incomplete Electron package by rerunning its binary installer, then verify the resolved executable",
+      "detectedAt": "2026-11-19T08:04:33.739Z"
     }
   ]
 }
