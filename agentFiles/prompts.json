@@ -110,11 +110,12 @@
     },
     {
       "serial": "CT-20261119-1327-08",
-      "status": "pending",
+      "status": "detected",
       "iteration": 1,
       "prompt": "run the command timeout 15s npm run dev in terminal",
       "createdAt": "2026-11-19T07:56:47.403Z",
-      "note": "Short GUI smoke launch after clean build; timeout is expected to stop the dev server"
+      "note": "Short GUI smoke launch after clean build; timeout is expected to stop the dev server",
+      "detectedAt": "2026-11-19T07:56:54.211Z"
     }
   ]
 }
