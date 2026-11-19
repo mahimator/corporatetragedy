@@ -6,7 +6,7 @@ type Message = { text: string; outgoing: boolean };
 
 const HOME_URL = 'https://web.whatsapp.com/';
 const isWhatsAppURL = (value: string) => {
-  try { return new URL(value).hostname.endsWith('whatsapp.com'); } catch { return false; }
+  try { return (() => { const host = new URL(value).hostname; return host === 'whatsapp.com' || host.endsWith('.whatsapp.com'); })(); } catch { return false; }
 };
 
 
@@ -38,7 +38,7 @@ export default function App() {
   const [canGoForward, setCanGoForward] = useState(false);
 
   const isWhatsApp = (() => {
-    try { return new URL(address).hostname.endsWith('whatsapp.com'); }
+    try { return isWhatsAppURL(address); }
     catch { return false; }
   })();
 
