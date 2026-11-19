@@ -7,6 +7,7 @@ A workstation-style desktop browser for a focused personal workspace. The first 
 - Desktop shell built with Electron and React
 - HTTP and HTTPS navigation
 - Address bar accepts URLs or plain search queries (DuckDuckGo)
+- Independent browser tabs with new-tab and close controls
 - Back, forward, reload, and external-browser navigation
 - Persistent WhatsApp Web session (`persist:whatsapp`)
 - Optional workspace sidebar
@@ -17,6 +18,9 @@ A workstation-style desktop browser for a focused personal workspace. The first 
 
 - `⌘/Ctrl + L`: focus and select the address bar
 - `⌘/Ctrl + R`: reload the current page
+- `⌘/Ctrl + T`: new tab
+- `⌘/Ctrl + W`: close active tab
+- `Ctrl + Tab` / `Ctrl + Shift + Tab`: cycle tabs
 - `⌥/Alt + ←`: back
 - `⌥/Alt + →`: forward
 - `Escape`: close the Chat Terminal overlay
