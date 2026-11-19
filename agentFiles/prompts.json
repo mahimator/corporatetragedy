@@ -407,12 +407,14 @@
     },
     {
       "serial": "CT-20261119-1724-47",
-      "status": "detected",
+      "status": "ran (1)",
       "iteration": 1,
       "prompt": "run the command npm run build && node --check electron/main.cjs && node --check agentFiles/bridge.mjs && node --check agentFiles/cli.mjs && node --check agentFiles/lib.mjs in terminal",
       "createdAt": "2026-11-19T10:24:00.000Z",
       "note": "Verify multi-tab refactor compiles and all bridge/Electron source syntax remains clean",
-      "detectedAt": "2026-11-19T08:13:26.859Z"
+      "detectedAt": "2026-11-19T08:13:26.859Z",
+      "ranAt": "2026-11-19T08:13:33.548Z",
+      "exitCode": 0
     }
   ]
 }
