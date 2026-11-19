@@ -17,6 +17,9 @@ fi
 git -C "$CEF_DIR" fetch --tags --quiet origin
 git -C "$CEF_DIR" checkout --detach "$CEF_PROJECT_COMMIT"
 
+# Upstream minimal sample sets mock-keychain on macOS, disabling cookie encryption.# Remove it for the CT baseline.
+sed -i '' '/use-mock-keychain/d' "$CEF_DIR/examples/minimal/app_browser_minimal.cc"
+
 echo "Pinned upstream cef-project checkout:"
 git -C "$CEF_DIR" log -1 --oneline
 
