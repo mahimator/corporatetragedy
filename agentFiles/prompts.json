@@ -349,6 +349,14 @@
       "detectedAt": "2026-11-19T08:08:33.447Z",
       "ranAt": "2026-11-19T08:09:18.044Z",
       "exitCode": 0
+    },
+    {
+      "serial": "CT-20261119-1647-81",
+      "status": "pending",
+      "iteration": 1,
+      "prompt": "run the command node -e 'const {spawn}=require(\"node:child_process\");const p=spawn(\"./node_modules/.bin/electron\",[\".\"],{stdio:[\"ignore\",\"pipe\",\"pipe\"]});let o=\"\",e=\"\";p.stdout.on(\"data\",d=>o+=d);p.stderr.on(\"data\",d=>e+=d);p.on(\"error\",x=>{console.error(x.message);process.exitCode=1});p.on(\"exit\",(code,signal)=>{console.log(\"Electron exited early:\",code,signal);console.log(o);console.error(e)});setTimeout(()=>{if(p.exitCode===null){console.log(\"Electron stayed alive for 10 seconds\");p.kill(\"SIGTERM\");setTimeout(()=>{console.log(\"STDOUT:\",o);console.error(\"STDERR:\",e)},800)}},10000)' in terminal",
+      "createdAt": "2026-11-19T09:47:00.000Z",
+      "note": "Run foreground Electron startup smoke test after checksummed runtime installation"
     }
   ]
 }
