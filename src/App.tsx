@@ -122,16 +122,21 @@ export default function App() {
     const handleNavigation = (event: any) => {
       if (!event.url) return;
       setAddress(event.url);
-      setLoaded(true);
       setLoadError('');
       if (!isWhatsAppURL(event.url)) clearWorkspace();
       refreshNavigation();
     };
+    const handleStart = () => setLoaded(false);
+    const handleStop = () => { setLoaded(true); refreshNavigation(); };
     view.addEventListener('did-navigate', handleNavigation);
     view.addEventListener('did-navigate-in-page', handleNavigation);
+    view.addEventListener('did-start-loading', handleStart);
+    view.addEventListener('did-stop-loading', handleStop);
     return () => {
       view.removeEventListener('did-navigate', handleNavigation);
       view.removeEventListener('did-navigate-in-page', handleNavigation);
+      view.removeEventListener('did-start-loading', handleStart);
+      view.removeEventListener('did-stop-loading', handleStop);
     };
   }, []);
 
