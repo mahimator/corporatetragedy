@@ -418,11 +418,12 @@
     },
     {
       "serial": "CT-20261119-1730-16",
-      "status": "pending",
+      "status": "detected",
       "iteration": 1,
       "prompt": "run the command ps -p 22817,22817 -o pid,comm && node -e 'const http=require(\"node:http\");http.get(\"http://127.0.0.1:5173\",r=>{console.log(\"dev server:\",r.statusCode);r.resume()}).on(\"error\",e=>{console.error(e.message);process.exitCode=1})' in terminal",
       "createdAt": "2026-11-19T10:30:00.000Z",
-      "note": "Confirm desktop remains open and dev server serves the newly built multi-tab frontend"
+      "note": "Confirm desktop remains open and dev server serves the newly built multi-tab frontend",
+      "detectedAt": "2026-11-19T08:13:55.557Z"
     }
   ]
 }
