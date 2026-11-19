@@ -429,11 +429,13 @@
     },
     {
       "serial": "CT-20261119-1137-94",
-      "status": "detected",
+      "status": "ran (1)",
       "iteration": 1,
       "prompt": "run the command date -u && git log --oneline -1 in terminal",
       "createdAt": "2026-11-19T08:37:32.011Z",
-      "detectedAt": "2026-11-19T08:37:33.638Z"
+      "detectedAt": "2026-11-19T08:37:33.638Z",
+      "ranAt": "2026-11-19T08:37:36.172Z",
+      "exitCode": 0
     }
   ]
 }
