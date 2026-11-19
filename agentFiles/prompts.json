@@ -107,6 +107,14 @@
       "detectedAt": "2026-11-19T07:56:11.247Z",
       "ranAt": "2026-11-19T07:56:20.890Z",
       "exitCode": 0
+    },
+    {
+      "serial": "CT-20261119-1327-08",
+      "status": "pending",
+      "iteration": 1,
+      "prompt": "run the command timeout 15s npm run dev in terminal",
+      "createdAt": "2026-11-19T07:56:47.403Z",
+      "note": "Short GUI smoke launch after clean build; timeout is expected to stop the dev server"
     }
   ]
 }
