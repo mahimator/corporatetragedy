@@ -175,6 +175,22 @@
       "passed": false,
       "stdout": "",
       "stderr": "zsh:1: command not found: timeout\n"
+    },
+    {
+      "serial": "CT-20261119-1345-66",
+      "iteration": 1,
+      "tag": "first output",
+      "command": "npm run build && node --check electron/main.cjs && node --check agentFiles/bridge.mjs && node --check agentFiles/cli.mjs && node --check agentFiles/lib.mjs && node -e \"const {spawn}=require('node:child_process');const p=spawn('npm',['run','dev'],{stdio:['ignore','pipe','pipe']});let o='',e='';p.stdout.on('data',d=>o+=d);p.stderr.on('data',d=>e+=d);p.on('error',x=>{console.error(x);process.exit(1)});setTimeout(()=>{p.kill('SIGTERM');setTimeout(()=>{console.log('LAUNCH SMOKE WINDOW 12S');console.log(o);console.error(e)},1500)},12000)\"",
+      "cwd": "/Users/madhavtrivedi/corporatetragedy",
+      "ranAt": "2026-11-19T07:57:52.549Z",
+      "exitCode": 0,
+      "signal": null,
+      "timedOut": false,
+      "truncated": false,
+      "durationMs": 21307,
+      "passed": true,
+      "stdout": "\n> corporate-tragedy@0.1.0 build\n> tsc --noEmit && vite build\n\nvite v5.4.21 building for production...\ntransforming...\n✓ 1581 modules transformed.\nrendering chunks...\ncomputing gzip size...\ndist/index.html                   0.37 kB │ gzip:  0.27 kB\ndist/assets/index-D3WHcVe9.css    8.68 kB │ gzip:  2.56 kB\ndist/assets/index-BSUgWYLJ.js   157.46 kB │ gzip: 50.44 kB\n✓ built in 2.17s\nLAUNCH SMOKE WINDOW 12S\n\n> corporate-tragedy@0.1.0 dev\n> concurrently -k -n WEB,ELECTRON -c blue,green \"vite --host 127.0.0.1\" \"wait-on http://127.0.0.1:5173 && electron .\"\n\n[WEB] error when starting dev server:\n[WEB] Error: Port 5173 is already in use\n[WEB]     at Server.onError (file:///Users/madhavtrivedi/corporatetragedy/node_modules/vite/dist/node/chunks/dep-BK3b2jBa.js:45596:18)\n[WEB]     at Server.emit (node:events:509:20)\n[WEB]     at emitErrorNT (node:net:2203:8)\n[WEB]     at process.processTicksAndRejections (node:internal/process/task_queues:90:21)\n[WEB] vite --host 127.0.0.1 exited with code 1\n--> Sending SIGTERM to other processes..\n[ELECTRON] wait-on http://127.0.0.1:5173 && electron . exited with code SIGTERM\n\n",
+      "stderr": "\n"
     }
   ]
 }
