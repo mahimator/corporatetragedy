@@ -374,11 +374,12 @@
     },
     {
       "serial": "CT-20261119-1659-09",
-      "status": "pending",
+      "status": "detected",
       "iteration": 1,
       "prompt": "run the command ps -p 22807 -o pid,comm && node -e 'const fs=require(\"node:fs\");for(const p of [\"node_modules/electron/path.txt\",\"node_modules/electron/dist/version\"])console.log(p,fs.existsSync(p),fs.existsSync(p)?fs.readFileSync(p,\"utf8\"):\"\")' in terminal",
       "createdAt": "2026-11-19T09:59:00.000Z",
-      "note": "Confirm launched Electron process remains running and runtime metadata files were installed"
+      "note": "Confirm launched Electron process remains running and runtime metadata files were installed",
+      "detectedAt": "2026-11-19T08:10:25.949Z"
     }
   ]
 }
