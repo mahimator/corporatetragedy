@@ -5,7 +5,12 @@ type Chat = { name: string; preview: string; index: number };
 type Message = { text: string; outgoing: boolean };
 
 const HOME_URL = 'https://web.whatsapp.com/';
-const isWhatsAppURL = (value: string) => {\n  try { return new URL(value).hostname.endsWith('whatsapp.com'); } catch { return false; }\n};\n\nconst normalizeUrl = (input: string) => {
+const isWhatsAppURL = (value: string) => {
+  try { return new URL(value).hostname.endsWith('whatsapp.com'); } catch { return false; }
+};
+
+
+const normalizeUrl = (input: string) => {
   const value = input.trim();
   if (!value) return null;
   const candidate = /^[a-zA-Z][a-zA-Z0-9+.-]*:\/\//.test(value) ? value : `https://${value}`;
