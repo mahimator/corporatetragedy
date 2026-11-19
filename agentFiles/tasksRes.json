@@ -127,6 +127,22 @@
       "passed": false,
       "stdout": "\n> leisure-workbench@0.1.0 build\n> tsc --noEmit && vite build\n\nsrc/App.tsx(179,13): error TS2322: Type '{ ref: MutableRefObject<any>; src: string; partition: string; useragent: string; allowpopups: true; className: string; onDomReady: () => void; onDidNavigate: (e: any) => void; onDidNavigateInPage: (e: any) => void; onDidFailLoad: (e: any) => void; onConsoleMessage: (e: any) => void; onTitleUpdated: (e: any) => void; }' is not assignable to type 'ClassAttributes<HTMLElement> & HTMLAttributes<HTMLElement> & { src?: string | undefined; partition?: string | undefined; ... 6 more ...; onTitleUpdated?: ((event: { ...; }) => void) | undefined; }'.\n  Property 'onDidNavigate' does not exist on type 'ClassAttributes<HTMLElement> & HTMLAttributes<HTMLElement> & { src?: string | undefined; partition?: string | undefined; ... 6 more ...; onTitleUpdated?: ((event: { ...; }) => void) | undefined; }'.\n",
       "stderr": ""
+    },
+    {
+      "serial": "CT-20261119-1206-43",
+      "iteration": 4,
+      "tag": "retry output",
+      "command": "npm run build && node -e \"const p=require('./package.json');if(!p.scripts.build||!p.main)process.exit(1);console.log('package metadata verified:',p.main,'build script present')\"",
+      "cwd": "/Users/madhavtrivedi/corporatetragedy",
+      "ranAt": "2026-11-19T07:52:30.507Z",
+      "exitCode": 0,
+      "signal": null,
+      "timedOut": false,
+      "truncated": false,
+      "durationMs": 12972,
+      "passed": true,
+      "stdout": "\n> corporate-tragedy@0.1.0 build\n> tsc --noEmit && vite build\n\nvite v5.4.21 building for production...\ntransforming...\n✓ 1581 modules transformed.\nrendering chunks...\ncomputing gzip size...\ndist/index.html                   0.37 kB │ gzip:  0.27 kB\ndist/assets/index-D3WHcVe9.css    8.68 kB │ gzip:  2.56 kB\ndist/assets/index-0R2ahE5-.js   158.31 kB │ gzip: 50.59 kB\n✓ built in 4.94s\npackage metadata verified: electron/main.cjs build script present\n",
+      "stderr": ""
     }
   ]
 }
