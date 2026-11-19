@@ -60,7 +60,7 @@ export default function App() {
     const url = normalizeUrl(address);
     if (!url) return;
     if (bookmarks.some(bookmark => bookmark.url === url)) setBookmarks(list => list.filter(bookmark => bookmark.url !== url));
-    else setBookmarks(list => [...list, { title: pageTitle || url, url }]);
+    else setBookmarks(list => [...list, { title: isWhatsApp ? 'WhatsApp' : (pageTitle !== 'WhatsApp' ? pageTitle : new URL(url).hostname), url }]);
   };
 
   const clearWorkspace = () => {
@@ -226,7 +226,7 @@ export default function App() {
         <div className="side-label">WORKSPACE</div>
         <div className="side-group"><span className="chevron">⌄</span> APPS</div>
         <button className="app-row active" onClick={() => go(HOME_URL)}><span className="wa-icon">W</span> WhatsApp <span className="live">●</span></button>
-        <button className="app-row disabled" disabled title="More integrations will be added later"><span className="add-icon">+</span> Add integration</button><div className="side-label bookmark-label">BOOKMARKS</div>{bookmarks.map((bookmark,index)=><div className="bookmark-row" key={bookmark.url}><button title={bookmark.url} onClick={()=>go(bookmark.url)}><Bookmark size={12}/><span>{bookmark.title}</span></button><button className="bookmark-remove" title="Remove bookmark" onClick={()=>setBookmarks(list=>list.filter((_,i)=>i!==index))}><X size={12}/></button></div>)}
+        <button className="app-row disabled" disabled title="More integrations will be added later"><span className="add-icon">+</span> Add integration</button><div className="side-label bookmark-label">BOOKMARKS ({bookmarks.length})</div>{!bookmarks.length && <div className="bookmark-empty">Bookmark pages to pin them here.</div>}{bookmarks.map((bookmark,index)=><div className="bookmark-row" key={bookmark.url}><button title={bookmark.url} onClick={()=>go(bookmark.url)}><Bookmark size={12}/><span>{bookmark.title}</span></button><button className="bookmark-remove" title="Remove bookmark" onClick={()=>setBookmarks(list=>list.filter((_,i)=>i!==index))}><X size={12}/></button></div>)}
         
       </aside>}
       <main className="content">
