@@ -5,7 +5,7 @@ type Chat = { name: string; preview: string; index: number };
 type Message = { text: string; outgoing: boolean };
 
 const HOME_URL = 'https://web.whatsapp.com/';
-const normalizeUrl = (input: string) => {
+const isWhatsAppURL = (value: string) => {\n  try { return new URL(value).hostname.endsWith('whatsapp.com'); } catch { return false; }\n};\n\nconst normalizeUrl = (input: string) => {
   const value = input.trim();
   if (!value) return null;
   const candidate = /^[a-zA-Z][a-zA-Z0-9+.-]*:\/\//.test(value) ? value : `https://${value}`;
@@ -171,7 +171,7 @@ export default function App() {
           <webview ref={webview} src={HOME_URL} partition="persist:whatsapp" useragent="Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/130.0.0.0 Safari/537.36" allowpopups className="webview"
             onDomReady={() => {setLoaded(true);setLoadError('');refreshNavigation();void scanChats();}}
             onDidStartNavigation={() => {setLoaded(false);refreshNavigation();}}
-            onDidNavigate={(e:any) => {if(e.url){setAddress(e.url);if(!e.url.includes('whatsapp.com'))clearWorkspace();}refreshNavigation();}}
+            onDidNavigate={(e:any) => {if(e.url){setAddress(e.url);if(!isWhatsAppURL(e.url))clearWorkspace();}refreshNavigation();}}
             onDidNavigateInPage={(e:any) => {if(e.url){setAddress(e.url);if(!e.url.includes('whatsapp.com'))clearWorkspace();}refreshNavigation();}}
             onDidFailLoad={(e:any) => {if(e.errorCode !== -3) setLoadError(e.errorDescription || 'Page failed to load');}}
             onConsoleMessage={(e:any)=>console.warn('[webview console]',e.message)}
