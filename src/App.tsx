@@ -149,6 +149,7 @@ export default function App() {
         <span className="secure"><ShieldCheck size={12}/></span><input value={address} onChange={e=>setAddress(e.target.value)} aria-label="Address" spellCheck={false}/>
         <button type="submit" title="Go"><ArrowRight size={13}/></button>
       </form>
+      {loaded && loadError && <span className="address-error" role="alert">{loadError}</span>}
       <button className="navbtn" title="Open in external browser" onClick={() => {const url=normalizeUrl(address);if(url)window.open(url, '_blank')}}><ExternalLink size={14}/></button>
       <button className="navbtn" title="Toggle sidebar" onClick={() => setSidebar(v=>!v)}><PanelLeft size={14}/></button>
     </div>
