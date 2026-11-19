@@ -11,11 +11,13 @@
     },
     {
       "serial": "CT-20261119-1039-75",
-      "status": "detected",
+      "status": "ran (1)",
       "iteration": 1,
       "prompt": "run the command git log --oneline -3 in terminal",
       "createdAt": "2026-11-19T07:39:53.043Z",
-      "detectedAt": "2026-11-19T07:39:59.352Z"
+      "detectedAt": "2026-11-19T07:39:59.352Z",
+      "ranAt": "2026-11-19T07:40:02.234Z",
+      "exitCode": 0
     }
   ]
 }
