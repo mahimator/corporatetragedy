@@ -8,7 +8,7 @@ function createWindow() {
     minWidth: 900,
     minHeight: 620,
     backgroundColor: '#111318',
-    title: 'Workbench',
+    title: 'Corporate Tragedy',
     webPreferences: {
       webviewTag: true,
       sandbox: true,
