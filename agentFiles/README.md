@@ -30,16 +30,6 @@ nohup npm run bridge >/dev/null 2>&1 &
 tmux new -s bridge 'npm run bridge'
 ```
 
-Or as a launchd service that restarts on crash and login:
-
-```bash
-cp agentFiles/com.mahimator.terminalbridge.plist ~/Library/LaunchAgents/
-launchctl load ~/Library/LaunchAgents/com.mahimator.terminalbridge.plist
-launchctl list | grep terminalbridge       # running: PID in column 1
-# stop / remove
-launchctl unload ~/Library/LaunchAgents/com.mahimator.terminalbridge.plist
-```
-
 Logs: `agentFiles/.bridge.log`, `agentFiles/.launchd.err.log`. Both are gitignored.
 
 One-shot mode for debugging: `npm run bridge:once`.
