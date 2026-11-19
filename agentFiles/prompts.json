@@ -341,11 +341,12 @@
     },
     {
       "serial": "CT-20261119-1639-55",
-      "status": "pending",
+      "status": "detected",
       "iteration": 1,
       "prompt": "run the command curl -L --fail --silent --show-error --max-time 180 -o /tmp/electron-v33.4.11-darwin-arm64.zip https://github.com/electron/electron/releases/download/v33.4.11/electron-v33.4.11-darwin-arm64.zip && EXPECTED=$(node -e 'console.log(require(\"./node_modules/electron/checksums.json\")[\"electron-v33.4.11-darwin-arm64.zip\"])') && ACTUAL=$(shasum -a 256 /tmp/electron-v33.4.11-darwin-arm64.zip | awk '{print $1}') && echo \"SHA256 expected=$EXPECTED actual=$ACTUAL\" && test \"$ACTUAL\" = \"$EXPECTED\" && unzip -oq /tmp/electron-v33.4.11-darwin-arm64.zip -d node_modules/electron/dist && if [ -f node_modules/electron/dist/electron.d.ts ]; then mv node_modules/electron/dist/electron.d.ts node_modules/electron/electron.d.ts; fi && printf 'Electron.app/Contents/MacOS/Electron' > node_modules/electron/path.txt && node -e 'const e=require(\"electron\");const fs=require(\"node:fs\");console.log(\"resolved binary:\",e);fs.accessSync(e,fs.constants.X_OK);console.log(\"runtime executable verified\")' in terminal",
       "createdAt": "2026-11-19T09:39:00.000Z",
-      "note": "Recover Electron manually from official release artifact, verify SHA256 against bundled checksum, extract and verify executable"
+      "note": "Recover Electron manually from official release artifact, verify SHA256 against bundled checksum, extract and verify executable",
+      "detectedAt": "2026-11-19T08:08:33.447Z"
     }
   ]
 }
