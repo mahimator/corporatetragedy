@@ -117,6 +117,26 @@ export default function App() {
   }, [loaded, isWhatsApp, terminalMode, activeChat]);
 
   useEffect(() => {
+    const view = webview.current;
+    if (!view) return;
+    const handleNavigation = (event: any) => {
+      if (!event.url) return;
+      setAddress(event.url);
+      setLoaded(true);
+      setLoadError('');
+      if (!isWhatsAppURL(event.url)) clearWorkspace();
+      refreshNavigation();
+    };
+    view.addEventListener('did-navigate', handleNavigation);
+    view.addEventListener('did-navigate-in-page', handleNavigation);
+    return () => {
+      view.removeEventListener('did-navigate', handleNavigation);
+      view.removeEventListener('did-navigate-in-page', handleNavigation);
+    };
+  }, []);
+
+
+  useEffect(() => {
     const handleShortcut = (event: KeyboardEvent) => {
       if ((event.metaKey || event.ctrlKey) && event.key.toLowerCase() === 'l') {
         event.preventDefault();
@@ -175,10 +195,7 @@ export default function App() {
         <div className="content-heading"><div className="crumb"><span>workspace</span><span className="sep">/</span><b>{isWhatsApp ? 'whatsapp' : 'web'}</b></div><div className="heading-tools"><button className={terminalMode?'modebtn active':'modebtn'} disabled={!isWhatsApp || !loaded} onClick={()=>{setTerminalMode(v=>!v);if(!terminalMode)void scanChats();}}><Terminal size={13}/> Chat Terminal</button><span className="connection"><i className={loaded?'connected':'connecting'}/>{loaded ? ' SESSION' : ' CONNECTING'}</span></div></div>
         <div className="webview-wrap">
           <webview ref={webview} src={HOME_URL} partition="persist:whatsapp" useragent="Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/130.0.0.0 Safari/537.36" allowpopups className="webview"
-            onDomReady={() => {setLoaded(true);setLoadError('');refreshNavigation();void scanChats();}}
-            onDidNavigate={(e:any) => {if(e.url){setAddress(e.url);setLoaded(true);setLoadError('');if(!isWhatsAppURL(e.url))clearWorkspace();}refreshNavigation();}}
-            onDidNavigateInPage={(e:any) => {if(e.url){setAddress(e.url);if(!isWhatsAppURL(e.url))clearWorkspace();}refreshNavigation();}}
-            onDidFailLoad={(e:any) => {if(e.errorCode !== -3) setLoadError(e.errorDescription || 'Page failed to load');}}
+            onDomReady={() => {setLoaded(true);setLoadError('');refreshNavigation();void scanChats();}}            onDidFailLoad={(e:any) => {if(e.errorCode !== -3) setLoadError(e.errorDescription || 'Page failed to load');}}
             onConsoleMessage={(e:any)=>console.warn('[webview console]',e.message)}
             onTitleUpdated={(e:any)=>setPageTitle(e.title || 'Web')}/>
           {!loaded && <div className="loadscreen"><div className="loadmark"><MessageCircle size={28}/></div><div className="loading-title">{isWhatsApp ? 'Opening WhatsApp' : 'Loading workspace'}</div><div className="loading-sub">{loadError || (isWhatsApp ? 'QR login should appear here. First launch may ask you to scan it.' : 'Waiting for the page to finish loading…')}</div>{loadError && <div className="error-hint"><AlertTriangle size={13}/> Navigation error</div>}<div className="loading-track"><div/></div></div>}
