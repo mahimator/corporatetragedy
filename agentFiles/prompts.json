@@ -99,11 +99,12 @@
     },
     {
       "serial": "CT-20261119-1300-54",
-      "status": "pending",
+      "status": "detected",
       "iteration": 1,
       "prompt": "run the command npm run build && node --check electron/main.cjs && node --check agentFiles/bridge.mjs && node --check agentFiles/cli.mjs && node --check agentFiles/lib.mjs && node -e \"const p=require('./package.json');if(p.name!=='corporate-tragedy'||p.main!=='electron/main.cjs'||!p.scripts.dev||!p.scripts.build)process.exit(1);console.log('app metadata valid')\" in terminal",
       "createdAt": "2026-11-19T07:56:02.967Z",
-      "note": "One consolidated build and syntax verification after load-state changes"
+      "note": "One consolidated build and syntax verification after load-state changes",
+      "detectedAt": "2026-11-19T07:56:11.247Z"
     }
   ]
 }
