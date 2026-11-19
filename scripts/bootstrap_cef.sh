@@ -1,13 +1,21 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-if [ "$(uname -s)" != "Darwin" ]; then\n  echo "This bootstrap currently targets macOS/Xcode only." >&2\n  exit 1\nfi\n\nROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
+if [ "$(uname -s)" != "Darwin" ]; then
+  echo "This bootstrap currently targets macOS/Xcode only." >&2
+  exit 1
+fi
+
+ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
 CEF_DIR="$ROOT/.deps/cef-project"
 CEF_PROJECT_COMMIT="3aec7049cf63a36876d7a6ef538842d6af314482"
 
-if ! command -v cmake >/dev/null 2>&1; then echo "ERROR: cmake is required." >&2; exit 1; fi
-if ! command -v git >/dev/null 2>&1; then echo "ERROR: git is required." >&2; exit 1; fi
-if ! command -v python3 >/dev/null 2>&1; then echo "ERROR: python3 is required." >&2; exit 1; fi
+for required in cmake git python3; do
+  if ! command -v "$required" >/dev/null 2>&1; then
+    echo "ERROR: $required is required." >&2
+    exit 1
+  fi
+done
 
 mkdir -p "$ROOT/.deps"
 if [ ! -d "$CEF_DIR/.git" ]; then
@@ -17,7 +25,8 @@ fi
 git -C "$CEF_DIR" fetch --tags --quiet origin
 git -C "$CEF_DIR" checkout --detach "$CEF_PROJECT_COMMIT"
 
-# Upstream minimal sample sets mock-keychain on macOS, disabling cookie encryption.\n# Remove it for the CT baseline.
+# Upstream minimal sample sets mock-keychain on macOS, disabling cookie encryption.
+# Remove it for the CT baseline.
 sed -i '' '/use-mock-keychain/d' "$CEF_DIR/examples/minimal/app_browser_minimal.cc"
 
 echo "Pinned upstream cef-project checkout:"
@@ -41,8 +50,5 @@ cmake -S "$CEF_DIR" -B "$BUILD_DIR" -G Xcode \
 
 echo
 echo "CEF project configured."
-echo "Next build the upstream minimal target:"
+echo "Build with:"
 echo "  cmake --build '$BUILD_DIR' --config Release --target minimal"
-echo
-echo "Then run the upstream app bundle from its configured output directory."
-echo "This is upstream's baseline app, not yet the branded CT browser."
