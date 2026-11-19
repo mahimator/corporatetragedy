@@ -202,7 +202,7 @@ export default function App() {
       <button className="navbtn" title="Toggle sidebar" onClick={() => setSidebar(v=>!v)}><PanelLeft size={14}/></button>
     </div>
     <div className="tabstrip">
-      <div className="tab active"><MessageCircle size={14}/><span>{isWhatsApp ? 'WhatsApp' : pageTitle || 'Web'}</span><span className="tab-close">×</span></div>
+      <div className="tab active"><MessageCircle size={14}/><span>{isWhatsApp ? 'WhatsApp' : pageTitle || 'Web'}</span></div>
       <button className="addtab" title="Additional tabs are not available yet" disabled><Plus size={14}/></button>
       <div className="tabspace"/>
     </div>
