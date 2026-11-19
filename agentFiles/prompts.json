@@ -151,6 +151,14 @@
       "detectedAt": "2026-11-19T08:00:52.891Z",
       "ranAt": "2026-11-19T08:01:15.916Z",
       "exitCode": 1
+    },
+    {
+      "serial": "CT-20261119-1434-52",
+      "status": "pending",
+      "iteration": 1,
+      "prompt": "run the command npm run build && node --check electron/main.cjs && node --check agentFiles/bridge.mjs && node --check agentFiles/cli.mjs && node --check agentFiles/lib.mjs && node -e 'const q=encodeURIComponent(\"hello world\");const u=new URL(\"https://duckduckgo.com/?q=\"+q);if(u.searchParams.get(\"q\")!==\"hello world\")throw Error(\"query encoding failed\");if(new URL(\"https://example.com\").href!==\"https://example.com/\")throw Error(\"URL normalization failed\");if(new URL(\"ftp://bad\").protocol!==\"ftp:\")throw Error(\"protocol test failed\");console.log(\"address bar encoding and URL normalization cases passed\")' in terminal",
+      "createdAt": "2026-11-19T08:34:00.000Z",
+      "note": "Retry the small URL test after a malformed prior test command, with production build and syntax checks"
     }
   ]
 }
