@@ -1,0 +1,24 @@
+# CEF / Chromium distributions
+cef/
+cef_binary_*/
+third_party/cef/
+third_party/
+
+# Build output
+build/
+cmake-build-*/
+out/
+dist/
+*.app/
+*.dSYM/
+
+# IDE and tool state
+.idea/
+.vscode/
+.DS_Store
+*.user
+*.swp
+
+# Local dependency configuration
+local.cmake
+CMakeUserPresets.json
