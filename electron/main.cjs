@@ -8,10 +8,10 @@ function createWindow() {
     minWidth: 900,
     minHeight: 620,
     backgroundColor: '#111318',
-    sandbox: true,
     title: 'Workbench',
     webPreferences: {
       webviewTag: true,
+      sandbox: true,
       contextIsolation: true,
       nodeIntegration: false
     }
