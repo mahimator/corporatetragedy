@@ -23,15 +23,15 @@ bash scripts/check_m0.sh
 
 Use a stable CEF release branch and its prebuilt macOS arm64 distribution. Record CEF branch/version, bundled Chromium version, archive URL and checksum, Xcode/SDK, CMake and Ninja versions.
 
-Do not build Chromium from source for M0. Use the official CEF `cefsimple` sample as the baseline. It already includes CEF's macOS entry point, resource layout, wrapper configuration and application bundle setup.
+Do not build Chromium from source for M0. Use the official `cef-project` minimal sample as the baseline. The pinned upstream project is configured by `scripts/bootstrap_cef.sh` and built by `scripts/build_cef_minimal.sh`. It already includes CEF's macOS entry point, resource layout, wrapper configuration and application bundle setup.
 
-Official tutorial: https://chromiumembedded.github.io/cef/tutorial
+Official tutorial: https://github.com/chromiumembedded/cef-project/blob/master/README.md
 
 ## Sequence
 
 1. Run the toolchain checker on the development Mac.
 2. Select a CEF binary distribution compatible with the installed Xcode and SDK.
-3. Build and launch the upstream `cefsimple` sample without modifications.
+3. Build and launch the upstream minimal sample using the CT bootstrap scripts (with the mock-keychain switch removed).
 4. Confirm normal HTTPS navigation.
 5. Confirm clean shutdown and browser subprocess handling.
 6. Confirm a dedicated user profile directory and cookie/session persistence.
