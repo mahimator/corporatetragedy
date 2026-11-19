@@ -217,6 +217,14 @@
       "detectedAt": "2026-11-19T08:03:52.023Z",
       "ranAt": "2026-11-19T08:03:57.120Z",
       "exitCode": 0
+    },
+    {
+      "serial": "CT-20261119-1531-48",
+      "status": "pending",
+      "iteration": 1,
+      "prompt": "run the command ls -la node_modules/electron/dist/Electron.app/Contents/MacOS || true && cat node_modules/electron/install.js && node -e 'const fs=require(\"node:fs\");const path=require(\"node:path\");const pkg=require(\"electron/package.json\");const p=path.join(__dirname,\"node_modules/electron/dist/Electron.app/Contents/MacOS/Electron\");console.log(\"expected binary:\",p,\"exists:\",fs.existsSync(p),\"version:\",pkg.version)' in terminal",
+      "createdAt": "2026-11-19T08:31:00.000Z",
+      "note": "Inspect Electron app bundle and install script to identify missing binary before rebuild"
     }
   ]
 }
