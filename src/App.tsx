@@ -1,8 +1,9 @@
 import { useEffect, useRef, useState } from 'react';
-import { ArrowLeft, ArrowRight, RefreshCw, Plus, MessageCircle, PanelLeft, ExternalLink, Terminal, X, AlertTriangle, ShieldCheck } from 'lucide-react';
+import { ArrowLeft, ArrowRight, RefreshCw, Plus, MessageCircle, PanelLeft, ExternalLink, Terminal, X, AlertTriangle, ShieldCheck, Bookmark } from 'lucide-react';
 
 type Chat = { name: string; preview: string; index: number };
 type Message = { text: string; outgoing: boolean };
+type Bookmark = { title: string; url: string };
 
 const HOME_URL = 'https://web.whatsapp.com/';
 const isWhatsAppURL = (value: string) => {
@@ -42,11 +43,25 @@ export default function App() {
   const [pageTitle, setPageTitle] = useState('WhatsApp');
   const [canGoBack, setCanGoBack] = useState(false);
   const [canGoForward, setCanGoForward] = useState(false);
+  const [bookmarks, setBookmarks] = useState<Bookmark[]>(() => {
+    try { const saved = JSON.parse(localStorage.getItem('ct-bookmarks') || '[]'); return Array.isArray(saved) ? saved.filter((b:any) => typeof b?.title === 'string' && typeof b?.url === 'string') : []; }
+    catch { return []; }
+  });
+  const isBookmarked = bookmarks.some(bookmark => bookmark.url === address);
 
   const isWhatsApp = (() => {
     try { return isWhatsAppURL(address); }
     catch { return false; }
   })();
+
+  useEffect(() => { localStorage.setItem('ct-bookmarks', JSON.stringify(bookmarks)); }, [bookmarks]);
+
+  const toggleBookmark = () => {
+    const url = normalizeUrl(address);
+    if (!url) return;
+    if (bookmarks.some(bookmark => bookmark.url === url)) setBookmarks(list => list.filter(bookmark => bookmark.url !== url));
+    else setBookmarks(list => [...list, { title: pageTitle || url, url }]);
+  };
 
   const clearWorkspace = () => {
     setChats([]);
@@ -198,7 +213,7 @@ export default function App() {
         <button type="submit" title="Go"><ArrowRight size={13}/></button>
       </form>
       {loaded && loadError && <span className="address-error" role="alert">{loadError}</span>}
-      <button className="navbtn" title="Open in external browser" onClick={() => {const url=normalizeUrl(address);if(url)window.open(url, '_blank')}}><ExternalLink size={14}/></button>
+      <button className={isBookmarked ? "navbtn bookmark-active" : "navbtn"} title={isBookmarked ? "Remove bookmark" : "Bookmark page"} onClick={toggleBookmark}><Bookmark size={14}/></button><button className="navbtn" title="Open in external browser" onClick={() => {const url=normalizeUrl(address);if(url)window.open(url, '_blank')}}><ExternalLink size={14}/></button>
       <button className="navbtn" title="Toggle sidebar" onClick={() => setSidebar(v=>!v)}><PanelLeft size={14}/></button>
     </div>
     <div className="tabstrip">
@@ -211,7 +226,7 @@ export default function App() {
         <div className="side-label">WORKSPACE</div>
         <div className="side-group"><span className="chevron">⌄</span> APPS</div>
         <button className="app-row active" onClick={() => go(HOME_URL)}><span className="wa-icon">W</span> WhatsApp <span className="live">●</span></button>
-        <button className="app-row disabled" disabled title="More integrations will be added later"><span className="add-icon">+</span> Add integration</button>
+        <button className="app-row disabled" disabled title="More integrations will be added later"><span className="add-icon">+</span> Add integration</button><div className="side-label bookmark-label">BOOKMARKS</div>{bookmarks.map((bookmark,index)=><div className="bookmark-row" key={bookmark.url}><button title={bookmark.url} onClick={()=>go(bookmark.url)}><Bookmark size={12}/><span>{bookmark.title}</span></button><button className="bookmark-remove" title="Remove bookmark" onClick={()=>setBookmarks(list=>list.filter((_,i)=>i!==index))}><X size={12}/></button></div>)}
         
       </aside>}
       <main className="content">
