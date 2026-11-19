@@ -543,6 +543,22 @@
       "passed": true,
       "stdout": "Electron desktop window launch started, PID: 22807\n",
       "stderr": ""
+    },
+    {
+      "serial": "CT-20261119-1659-09",
+      "iteration": 1,
+      "tag": "first output",
+      "command": "ps -p 22807 -o pid,comm && node -e 'const fs=require(\"node:fs\");for(const p of [\"node_modules/electron/path.txt\",\"node_modules/electron/dist/version\"])console.log(p,fs.existsSync(p),fs.existsSync(p)?fs.readFileSync(p,\"utf8\"):\"\")'",
+      "cwd": "/Users/madhavtrivedi/corporatetragedy",
+      "ranAt": "2026-11-19T08:10:29.029Z",
+      "exitCode": 0,
+      "signal": null,
+      "timedOut": false,
+      "truncated": false,
+      "durationMs": 253,
+      "passed": true,
+      "stdout": "  PID COMM\n22807 node\nnode_modules/electron/path.txt true Electron.app/Contents/MacOS/Electron\nnode_modules/electron/dist/version true 33.4.11\n",
+      "stderr": ""
     }
   ]
 }
