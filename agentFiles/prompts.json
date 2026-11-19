@@ -327,6 +327,14 @@
       "detectedAt": "2026-11-19T08:07:33.771Z",
       "ranAt": "2026-11-19T08:07:38.656Z",
       "exitCode": 0
+    },
+    {
+      "serial": "CT-20261119-1630-41",
+      "status": "pending",
+      "iteration": 1,
+      "prompt": "run the command node -e 'const c=require(\"./node_modules/electron/checksums.json\");console.log(\"checksum schema:\",Object.keys(c).slice(0,15));console.log(\"entry:\",c[\"electron-v33.4.11-darwin-arm64.zip\"]||c[\"darwin-arm64\"]||c[\"electron\"]);console.log(\"Electron get version:\",require(\"@electron/get/package.json\").version)' in terminal",
+      "createdAt": "2026-11-19T09:30:00.000Z",
+      "note": "Inspect the official release checksum map to allow safe manual binary recovery if the installer is not functioning"
     }
   ]
 }
