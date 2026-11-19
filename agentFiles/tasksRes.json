@@ -495,6 +495,22 @@
       "passed": true,
       "stdout": "checksum schema: [\n  'chromedriver-v33.4.11-darwin-arm64.zip',\n  'chromedriver-v33.4.11-darwin-x64.zip',\n  'chromedriver-v33.4.11-linux-arm64.zip',\n  'chromedriver-v33.4.11-linux-armv7l.zip',\n  'chromedriver-v33.4.11-linux-x64.zip',\n  'chromedriver-v33.4.11-mas-arm64.zip',\n  'chromedriver-v33.4.11-mas-x64.zip',\n  'chromedriver-v33.4.11-win32-arm64.zip',\n  'chromedriver-v33.4.11-win32-ia32.zip',\n  'chromedriver-v33.4.11-win32-x64.zip',\n  'electron-api.json',\n  'electron-v33.4.11-darwin-arm64-dsym-snapshot.zip',\n  'electron-v33.4.11-darwin-arm64-dsym.zip',\n  'electron-v33.4.11-darwin-arm64-symbols.zip',\n  'electron-v33.4.11-darwin-arm64.zip'\n]\nentry: 9c763751c280b20ec93cecdc7f369bed876fc6728863a9ba5d7435096401f048\nElectron get version: 2.0.3\n",
       "stderr": ""
+    },
+    {
+      "serial": "CT-20261119-1639-55",
+      "iteration": 1,
+      "tag": "first output",
+      "command": "curl -L --fail --silent --show-error --max-time 180 -o /tmp/electron-v33.4.11-darwin-arm64.zip https://github.com/electron/electron/releases/download/v33.4.11/electron-v33.4.11-darwin-arm64.zip && EXPECTED=$(node -e 'console.log(require(\"./node_modules/electron/checksums.json\")[\"electron-v33.4.11-darwin-arm64.zip\"])') && ACTUAL=$(shasum -a 256 /tmp/electron-v33.4.11-darwin-arm64.zip | awk '{print $1}') && echo \"SHA256 expected=$EXPECTED actual=$ACTUAL\" && test \"$ACTUAL\" = \"$EXPECTED\" && unzip -oq /tmp/electron-v33.4.11-darwin-arm64.zip -d node_modules/electron/dist && if [ -f node_modules/electron/dist/electron.d.ts ]; then mv node_modules/electron/dist/electron.d.ts node_modules/electron/electron.d.ts; fi && printf 'Electron.app/Contents/MacOS/Electron' > node_modules/electron/path.txt && node -e 'const e=require(\"electron\");const fs=require(\"node:fs\");console.log(\"resolved binary:\",e);fs.accessSync(e,fs.constants.X_OK);console.log(\"runtime executable verified\")'",
+      "cwd": "/Users/madhavtrivedi/corporatetragedy",
+      "ranAt": "2026-11-19T08:09:18.044Z",
+      "exitCode": 0,
+      "signal": null,
+      "timedOut": false,
+      "truncated": false,
+      "durationMs": 41828,
+      "passed": true,
+      "stdout": "SHA256 expected=9c763751c280b20ec93cecdc7f369bed876fc6728863a9ba5d7435096401f048 actual=9c763751c280b20ec93cecdc7f369bed876fc6728863a9ba5d7435096401f048\nresolved binary: /Users/madhavtrivedi/corporatetragedy/node_modules/electron/dist/Electron.app/Contents/MacOS/Electron\nruntime executable verified\n",
+      "stderr": ""
     }
   ]
 }
