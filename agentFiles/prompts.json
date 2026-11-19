@@ -42,10 +42,11 @@
     },
     {
       "serial": "CT-20261119-1045-38",
-      "status": "pending",
+      "status": "detected",
       "iteration": 1,
       "prompt": "run the command npm run build in terminal",
-      "createdAt": "2026-11-19T07:45:44.887Z"
+      "createdAt": "2026-11-19T07:45:44.887Z",
+      "detectedAt": "2026-11-19T07:45:50.102Z"
     }
   ]
 }
