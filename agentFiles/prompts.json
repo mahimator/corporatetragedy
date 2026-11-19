@@ -21,12 +21,14 @@
     },
     {
       "serial": "CT-20261119-0845-22",
-      "status": "detected",
+      "status": "ran (1)",
       "iteration": 1,
       "prompt": "run the command npm run build in terminal",
       "createdAt": "2026-11-19T08:45:00.000Z",
       "note": "Build verification after terminal bridge handshake",
-      "detectedAt": "2026-11-19T07:43:34.055Z"
+      "detectedAt": "2026-11-19T07:43:34.055Z",
+      "ranAt": "2026-11-19T07:43:37.263Z",
+      "exitCode": 127
     },
     {
       "serial": "CT-20261119-1043-76",

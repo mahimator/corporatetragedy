@@ -31,6 +31,22 @@
       "passed": true,
       "stdout": "1afa4b0 bridge: detected CT-20261119-1039-75\n4e0b639 bridge: queued CT-20261119-1039-75\nf252669 Build working terminal bridge: daemon, CLI, safety rails, instructions\n",
       "stderr": ""
+    },
+    {
+      "serial": "CT-20261119-0845-22",
+      "iteration": 1,
+      "tag": "first output",
+      "command": "npm run build",
+      "cwd": "/Users/madhavtrivedi/corporatetragedy",
+      "ranAt": "2026-11-19T07:43:37.263Z",
+      "exitCode": 127,
+      "signal": null,
+      "timedOut": false,
+      "truncated": false,
+      "durationMs": 140,
+      "passed": false,
+      "stdout": "\n> leisure-workbench@0.1.0 build\n> tsc --noEmit && vite build\n\n",
+      "stderr": "sh: tsc: command not found\n"
     }
   ]
 }
