@@ -21,7 +21,7 @@ bash scripts/check_m0.sh
 
 ## CEF strategy
 
-Use a stable CEF release branch and its prebuilt macOS arm64 distribution. Record CEF branch/version, bundled Chromium version, archive URL and checksum, Xcode/SDK, CMake and Ninja versions.
+The bootstrap pins CEF 154.0.34 / Chromium 154.0.8037.98 and uses its prebuilt macOS arm64 distribution. Record archive URL and checksum, Xcode/SDK, CMake and Ninja versions as part of the build evidence.
 
 Do not build Chromium from source for M0. Use the official `cef-project` minimal sample as the baseline. The pinned upstream project is configured by `scripts/bootstrap_cef.sh` and built by `scripts/build_cef_minimal.sh`. It already includes CEF's macOS entry point, resource layout, wrapper configuration and application bundle setup.
 
