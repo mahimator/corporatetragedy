@@ -34,4 +34,4 @@ The project will maintain a third-party license and attribution inventory. Chrom
 
 ## M0 bootstrap
 
-Run the macOS toolchain check with `bash scripts/check_m0.sh`. The first build will use the official CEF `cefsimple` sample as the baseline. See [M0 build plan](docs/M0_BUILD.md) and [technology decision update](docs/CEF_DECISION_UPDATE.md).
+Run `bash scripts/check_m0.sh`, then `bash scripts/build_cef_minimal.sh` to build the official upstream CEF minimal sample on macOS. See [CEF bootstrap](docs/CEF_BOOTSTRAP.md).
