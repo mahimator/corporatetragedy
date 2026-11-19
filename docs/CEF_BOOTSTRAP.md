@@ -1,55 +1,43 @@
 # CEF Bootstrap
 
-This script uses the official Chromium Embedded Framework sample project as an isolated build baseline.
+The scripts in this directory set up and build an isolated upstream CEF minimal application on macOS.
 
 ## Requirements
 
-- macOS with Xcode and command line tools selected
+- macOS with Xcode and command-line tools selected
 - CMake 3.21 or newer
 - Git
 - Python 3
 - Network connection for upstream checkout and CEF binary distribution download
-- Disk space for the CEF distribution and generated build files
+- Disk space for CEF distribution and generated build files
 
-## Bootstrap
+## Build and launch the upstream minimal app
 
 From the repository root:
 
 ```sh
 bash scripts/check_m0.sh
-bash scripts/bootstrap_cef.sh
+bash scripts/build_cef_minimal.sh
 ```
 
-The bootstrap clones the official `chromiumembedded/cef-project` repository into `.deps/cef-project`, checks out the fixed commit recorded in the script, and configures its Xcode build directory for the current Mac architecture.
-
-The script deliberately does not install dependencies, alter system settings, or download Chromium source. CEF's CMake setup downloads the prebuilt CEF distribution.
-
-## Build the upstream minimal app
-
-After bootstrap completes:
+To build and launch in one command:
 
 ```sh
-cmake --build .deps/cef-project/build-ct --config Release --target minimal
+bash scripts/build_cef_minimal.sh --launch
 ```
 
-Locate the generated app bundle:
+The bootstrap clones official `chromiumembedded/cef-project` into `.deps/cef-project`, checks out the pinned upstream commit, and configures an Xcode build for the current Mac architecture. CEF's CMake setup downloads the prebuilt CEF binary distribution, not Chromium source.
 
-```sh
-find .deps/cef-project/build-ct -name 'minimal.app' -type d
-```
+## Security adjustment
 
-Launch the app bundle from Finder or with `open /path/to/minimal.app`.
+The upstream minimal sample uses a macOS mock-keychain switch. The CT bootstrap removes this switch from the local checkout so the sample does not intentionally disable cookie encryption. The upstream repository itself is not modified.
 
-## Why upstream first
+## What this milestone does not yet provide
 
-We need to separate toolchain/CEF failures from Corporate Tragedy code. The upstream minimal app is the control build. Once it launches, we copy the minimum source set into CT and begin replacing the sample's window/browser behavior. This prevents debugging our code and CEF setup at the same time.
-
-## What this does not yet provide
-
-- Corporate Tragedy branding in the native window
-- Browser tabs or native navigation chrome
-- User profile management
+- Corporate Tragedy native UI and branding
+- Browser tabs and native navigation chrome
+- Profile UI or profile switching
 - Download management
-- WhatsApp-specific integration
+- WhatsApp integration or validation
 
-The upstream minimal app is a build proof only. The branded browser implementation is the next development layer.
+This is a build-control app. Once it builds and launches on the development Mac, we will copy the minimal CEF application into CT-owned source and start implementing the branded browser window.
