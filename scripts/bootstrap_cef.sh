@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
+if [ "$(uname -s)" != "Darwin" ]; then\n  echo "This bootstrap currently targets macOS/Xcode only." >&2\n  exit 1\nfi\n\nROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
 CEF_DIR="$ROOT/.deps/cef-project"
 CEF_PROJECT_COMMIT="3aec7049cf63a36876d7a6ef538842d6af314482"
 
@@ -17,7 +17,7 @@ fi
 git -C "$CEF_DIR" fetch --tags --quiet origin
 git -C "$CEF_DIR" checkout --detach "$CEF_PROJECT_COMMIT"
 
-# Upstream minimal sample sets mock-keychain on macOS, disabling cookie encryption.# Remove it for the CT baseline.
+# Upstream minimal sample sets mock-keychain on macOS, disabling cookie encryption.\n# Remove it for the CT baseline.
 sed -i '' '/use-mock-keychain/d' "$CEF_DIR/examples/minimal/app_browser_minimal.cc"
 
 echo "Pinned upstream cef-project checkout:"
