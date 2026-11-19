@@ -385,12 +385,14 @@
     },
     {
       "serial": "CT-20261119-1705-63",
-      "status": "detected",
+      "status": "ran (1)",
       "iteration": 1,
       "prompt": "run the command ps -ax | grep -i '[e]lectron' && node -e 'const http=require(\"node:http\");http.get(\"http://127.0.0.1:5173\",r=>{console.log(\"Vite responds:\",r.statusCode);r.resume()}).on(\"error\",e=>{console.error(e.message);process.exitCode=1})' in terminal",
       "createdAt": "2026-11-19T10:05:00.000Z",
       "note": "Confirm native Electron process exists and dev server is responsive",
-      "detectedAt": "2026-11-19T08:10:44.457Z"
+      "detectedAt": "2026-11-19T08:10:44.457Z",
+      "ranAt": "2026-11-19T08:10:47.636Z",
+      "exitCode": 0
     }
   ]
 }
