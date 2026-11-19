@@ -143,12 +143,14 @@
     },
     {
       "serial": "CT-20261119-1423-07",
-      "status": "detected",
+      "status": "ran (1)",
       "iteration": 1,
       "prompt": "run the command npm run build && node --check electron/main.cjs && node --check agentFiles/bridge.mjs && node --check agentFiles/cli.mjs && node --check agentFiles/lib.mjs && node -e \"const cases=[['example.com','https://example.com/'],['hello world','https://duckduckgo.com/?q=hello%20world'],['https://example.com','https://example.com/'],['ftp://bad',null]];function norm(input){const v=input.trim();if(!v)return null;const has=/^[a-zA-Z][a-zA-Z0-9+.-]*:\\/\\//.test(v);const host=!/\\s/.test(v)&&(/^(localhost|127\\.0\\.0\\.1)(:\\d+)?(\\/.*)?$/i.test(v)||/^[\\w-]+(\\.[\\w-]+)+(:\\d+)?(\\/.*)?$/i.test(v));if(!has&&!host)return 'https://duckduckgo.com/?q='+encodeURIComponent(v);const candidate=has?v:'https://'+v;try{const u=new URL(candidate);return ['http:','https:'].includes(u.protocol)?u.href:null}catch{return null}}for(const [input,expected] of cases){const actual=norm(input);if(actual!==expected){console.error('FAIL',input,actual,expected);process.exit(1)}}console.log('address-bar normalization cases passed:',cases.length)}\" in terminal",
       "createdAt": "2026-11-19T08:23:00.000Z",
       "note": "Build and syntax verification after bookmark and search UX features, plus URL normalization unit cases",
-      "detectedAt": "2026-11-19T08:00:52.891Z"
+      "detectedAt": "2026-11-19T08:00:52.891Z",
+      "ranAt": "2026-11-19T08:01:15.916Z",
+      "exitCode": 1
     }
   ]
 }

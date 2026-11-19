@@ -207,6 +207,22 @@
       "passed": true,
       "stdout": "\n> corporate-tragedy@0.1.0 build\n> tsc --noEmit && vite build\n\nvite v5.4.21 building for production...\ntransforming...\n✓ 1581 modules transformed.\nrendering chunks...\ncomputing gzip size...\ndist/index.html                   0.37 kB │ gzip:  0.27 kB\ndist/assets/index-D3WHcVe9.css    8.68 kB │ gzip:  2.56 kB\ndist/assets/index-dOnDsSJz.js   157.60 kB │ gzip: 50.52 kB\n✓ built in 2.79s\nHTTP status: 200\nserved Vite page: true\n",
       "stderr": ""
+    },
+    {
+      "serial": "CT-20261119-1423-07",
+      "iteration": 1,
+      "tag": "first output",
+      "command": "npm run build && node --check electron/main.cjs && node --check agentFiles/bridge.mjs && node --check agentFiles/cli.mjs && node --check agentFiles/lib.mjs && node -e \"const cases=[['example.com','https://example.com/'],['hello world','https://duckduckgo.com/?q=hello%20world'],['https://example.com','https://example.com/'],['ftp://bad',null]];function norm(input){const v=input.trim();if(!v)return null;const has=/^[a-zA-Z][a-zA-Z0-9+.-]*:\\/\\//.test(v);const host=!/\\s/.test(v)&&(/^(localhost|127\\.0\\.0\\.1)(:\\d+)?(\\/.*)?$/i.test(v)||/^[\\w-]+(\\.[\\w-]+)+(:\\d+)?(\\/.*)?$/i.test(v));if(!has&&!host)return 'https://duckduckgo.com/?q='+encodeURIComponent(v);const candidate=has?v:'https://'+v;try{const u=new URL(candidate);return ['http:','https:'].includes(u.protocol)?u.href:null}catch{return null}}for(const [input,expected] of cases){const actual=norm(input);if(actual!==expected){console.error('FAIL',input,actual,expected);process.exit(1)}}console.log('address-bar normalization cases passed:',cases.length)}\"",
+      "cwd": "/Users/madhavtrivedi/corporatetragedy",
+      "ranAt": "2026-11-19T08:01:15.916Z",
+      "exitCode": 1,
+      "signal": null,
+      "timedOut": false,
+      "truncated": false,
+      "durationMs": 18320,
+      "passed": false,
+      "stdout": "\n> corporate-tragedy@0.1.0 build\n> tsc --noEmit && vite build\n\nvite v5.4.21 building for production...\ntransforming...\n✓ 1581 modules transformed.\nrendering chunks...\ncomputing gzip size...\ndist/index.html                   0.37 kB │ gzip:  0.27 kB\ndist/assets/index-PkkLwZ_f.css    9.39 kB │ gzip:  2.71 kB\ndist/assets/index-C4dLKGZv.js   158.83 kB │ gzip: 50.88 kB\n✓ built in 7.13s\n",
+      "stderr": "[eval]:1\nconst cases=[['example.com','https://example.com/'],['hello world','https://duckduckgo.com/?q=hello%20world'],['https://example.com','https://example.com/'],['ftp://bad',null]];function norm(input){const v=input.trim();if(!v)return null;const has=/^[a-zA-Z][a-zA-Z0-9+.-]*:\\/\\//.test(v);const host=!/\\s/.test(v)&&(/^(localhost|127\\.0\\.0\\.1)(:\\d+)?(\\/.*)?$/i.test(v)||/^[\\w-]+(\\.[\\w-]+)+(:\\d+)?(\\/.*)?$/i.test(v));if(!has&&!host)return 'https://duckduckgo.com/?q='+encodeURIComponent(v);const candidate=has?v:'https://'+v;try{const u=new URL(candidate);return ['http:','https:'].includes(u.protocol)?u.href:null}catch{return null}}for(const [input,expected] of cases){const actual=norm(input);if(actual!==expected){console.error('FAIL',input,actual,expected);process.exit(1)}}console.log('address-bar normalization cases passed:',cases.length)}\n                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                          ^\nExpression expected\n\nSyntaxError: Unexpected token '}'\n    at makeContextifyScript (node:internal/vm:194:14)\n    at compileScript (node:internal/process/execution:420:10)\n    at evalTypeScript (node:internal/process/execution:292:22)\n    at node:internal/main/eval_string:71:3\n\nNode.js v26.5.0\n"
     }
   ]
 }
