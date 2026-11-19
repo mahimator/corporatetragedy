@@ -132,12 +132,14 @@
     },
     {
       "serial": "CT-20261119-1412-93",
-      "status": "detected",
+      "status": "ran (1)",
       "iteration": 1,
       "prompt": "run the command npm run build && node --check electron/main.cjs && node --check agentFiles/bridge.mjs && node --check agentFiles/cli.mjs && node --check agentFiles/lib.mjs && node -e \"const http=require('node:http');const r=http.get('http://127.0.0.1:5173',x=>{console.log('HTTP status:',x.statusCode);let b='';x.on('data',d=>b+=d);x.on('end',()=>console.log('served Vite page:',b.includes('vite')||b.includes('Corporate Tragedy')||b.includes('root')))});r.on('error',e=>{console.log('HTTP check:',e.message);process.exitCode=1})\" in terminal",
       "createdAt": "2026-11-19T08:12:00.000Z",
       "note": "Consolidated build, syntax, and existing dev-server HTTP check after address-bar search and tab affordance fixes",
-      "detectedAt": "2026-11-19T07:59:52.495Z"
+      "detectedAt": "2026-11-19T07:59:52.495Z",
+      "ranAt": "2026-11-19T08:00:02.792Z",
+      "exitCode": 0
     }
   ]
 }
