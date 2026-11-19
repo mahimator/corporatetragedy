@@ -7,3 +7,5 @@
 .address-error{max-width:240px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;color:#d69b8f;font-size:10px;padding:0 4px}@media(max-width:760px){.address-error{display:none}}
 
 .bookmark-active{color:#e4c982!important;background:#342f23!important}.bookmark-label{margin-top:9px;border-top:1px solid #292d34;padding-top:11px}.bookmark-row{display:flex;align-items:center;min-width:0;padding:0 6px 0 12px;height:27px}.bookmark-row>button{border:0;background:transparent;color:#8e9aaa;cursor:pointer;display:flex;align-items:center;gap:6px;min-width:0;text-align:left;font-size:10px}.bookmark-row>button:first-child{flex:1;overflow:hidden}.bookmark-row>button:first-child span{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}.bookmark-row>button:hover{color:#d1d9e4}.bookmark-row .bookmark-remove{padding:4px;opacity:.55}.bookmark-row .bookmark-remove:hover{opacity:1;color:#e58c8c}
+
+.bookmark-empty{padding:7px 14px 10px;color:#66717e;font-size:10px;line-height:1.5}
