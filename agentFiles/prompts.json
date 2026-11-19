@@ -360,6 +360,14 @@
       "detectedAt": "2026-11-19T08:09:34.343Z",
       "ranAt": "2026-11-19T08:09:49.146Z",
       "exitCode": 0
+    },
+    {
+      "serial": "CT-20261119-1654-20",
+      "status": "pending",
+      "iteration": 1,
+      "prompt": "run the command node -e 'const {spawn}=require(\"node:child_process\");const p=spawn(\"./node_modules/.bin/electron\",[\".\"],{cwd:process.cwd(),detached:true,stdio:\"ignore\"});p.on(\"error\",e=>{console.error(\"Electron spawn failed:\",e.message);process.exitCode=1});p.unref();console.log(\"Electron desktop window launch started, PID:\",p.pid)' in terminal",
+      "createdAt": "2026-11-19T09:54:00.000Z",
+      "note": "Start actual Electron app in detached mode after passing 10-second foreground startup smoke"
     }
   ]
 }
