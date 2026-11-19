@@ -447,6 +447,22 @@
       "passed": true,
       "stdout": "-rwxr-xr-x@ 1 madhavtrivedi  staff  50472 Nov 19 11:06 node_modules/electron/dist/Electron.app/Contents/MacOS/Electron\n",
       "stderr": "ls: node_modules/electron/dist/version: No such file or directory\nls: node_modules/electron/path.txt: No such file or directory\n"
+    },
+    {
+      "serial": "CT-20261119-1620-08",
+      "iteration": 1,
+      "tag": "first output",
+      "command": "node -e 'console.log(\"@electron/get:\",require.resolve(\"@electron/get\"));console.log(\"install script:\",require(\"fs\").readFileSync(\"node_modules/electron/install.js\",\"utf8\").slice(0,300))' && DEBUG=electron:get node node_modules/electron/install.js && ls -la node_modules/electron/path.txt node_modules/electron/dist/version || true",
+      "cwd": "/Users/madhavtrivedi/corporatetragedy",
+      "ranAt": "2026-11-19T08:07:12.048Z",
+      "exitCode": 0,
+      "signal": null,
+      "timedOut": false,
+      "truncated": false,
+      "durationMs": 411,
+      "passed": true,
+      "stdout": "@electron/get: /Users/madhavtrivedi/corporatetragedy/node_modules/@electron/get/dist/cjs/index.js\ninstall script: #!/usr/bin/env node\n\nconst { downloadArtifact } = require('@electron/get');\n\nconst extract = require('extract-zip');\n\nconst childProcess = require('child_process');\nconst fs = require('fs');\nconst os = require('os');\nconst path = require('path');\n\nconst { version } = require('./package');\n\nif (proce\n",
+      "stderr": "ls: node_modules/electron/dist/version: No such file or directory\nls: node_modules/electron/path.txt: No such file or directory\n"
     }
   ]
 }
