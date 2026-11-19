@@ -1,19 +1,25 @@
-# Workbench
+# Corporate Tragedy
 
-Iteration 01: IDE-style shell with WhatsApp Web as the first embedded app.
+A browser that looks and feels like a developer workstation. Social and entertainment apps live inside it, starting with WhatsApp.
+
+## Iteration 01: WhatsApp
+
+- Minimal workstation-inspired browser chrome
+- WhatsApp Web only
+- Browser navigation controls
+- Address bar
+- Persistent WhatsApp login session
+- Simple workspace sidebar
 
 ## Run locally
-- Install Node.js 20+
-- `npm install`
-- `npm run dev`
 
-WhatsApp Web session is stored in Electron's persistent `persist:whatsapp` partition. First launch requires QR authentication.
+Requires Node.js 20+.
 
-## Current scope
-- Dark IDE-inspired shell
-- App navigation placeholders
-- Embedded WhatsApp Web
-- Bottom terminal panel (UI placeholder)
-- Right inspector placeholder
+```bash
+npm install
+npm run dev
+```
 
-Next: test embedded WhatsApp stability, then prototype terminal-style chat rendering.
+Electron launches the desktop shell. WhatsApp login persists in the `persist:whatsapp` partition.
+
+This iteration intentionally contains no terminal panel, inspector, fake IDE modules, or other app placeholders. Future integrations will be added incrementally.
