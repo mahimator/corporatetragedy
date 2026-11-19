@@ -34,7 +34,7 @@ BUILD_DIR="$CEF_DIR/build-ct"
 mkdir -p "$BUILD_DIR"
 cmake -S "$CEF_DIR" -B "$BUILD_DIR" -G Xcode \
   -DPROJECT_ARCH="$PROJECT_ARCH" \
-  -DWITH_EXAMPLES=Off
+  -DWITH_EXAMPLES=On
 
 echo
 echo "CEF project configured."
