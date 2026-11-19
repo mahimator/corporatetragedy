@@ -25,9 +25,41 @@ fi
 git -C "$CEF_DIR" fetch --tags --quiet origin
 git -C "$CEF_DIR" checkout --detach "$CEF_PROJECT_COMMIT"
 
-# Upstream minimal sample sets mock-keychain on macOS, disabling cookie encryption.
-# Remove it for the CT baseline.
-sed -i '' '/use-mock-keychain/d' "$CEF_DIR/examples/minimal/app_browser_minimal.cc"
+# Apply small CT-specific patches to the upstream sample.
+python3 - "$CEF_DIR/examples/minimal/app_browser_minimal.cc" "$CEF_DIR/examples/shared/main_mac.mm" <<'PY'
+from pathlib import Path
+import sys
+
+startup_file = Path(sys.argv[1])
+startup = startup_file.read_text()
+old_url = 'constexpr char kStartupURL[] = "https://www.google.com";'
+new_url = 'constexpr char kStartupURL[] = "https://web.whatsapp.com";'
+if old_url in startup:
+    startup = startup.replace(old_url, new_url, 1)
+elif new_url not in startup:
+    raise SystemExit("Could not locate upstream minimal startup URL; refusing to patch blindly.")
+startup_file.write_text(startup)
+
+mac_main = Path(sys.argv[2])
+main_text = mac_main.read_text()
+old_settings = '    CefSettings settings;'
+new_settings = '''    CefSettings settings;
+    // Keep browser profile data in the user's Application Support directory.
+    NSString* profilePath =
+        [NSHomeDirectory() stringByAppendingPathComponent:
+            @"Library/Application Support/Corporate Tragedy"];
+    [[NSFileManager defaultManager]
+        createDirectoryAtPath:profilePath
+        withIntermediateDirectories:YES
+        attributes:nil
+        error:nil];
+    CefString(&settings.cache_path) = profilePath.UTF8String;'''
+if old_settings in main_text:
+    main_text = main_text.replace(old_settings, new_settings, 1)
+elif 'Application Support/Corporate Tragedy' not in main_text:
+    raise SystemExit("Could not locate CEF settings block; refusing to patch blindly.")
+mac_main.write_text(main_text)
+PY
 
 echo "Pinned upstream cef-project checkout:"
 git -C "$CEF_DIR" log -1 --oneline
